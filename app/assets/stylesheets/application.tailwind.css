@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.primary-typeface {
+  font-family: "Lora", "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.secondary-typeface {
+  font-family: "Raleway", "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.news-typeface {
+  font-family: "Limelight", sans-serif;
+}
+
+.post__content {
+  overflow: auto;
+}
+.post__content a {
+  word-break: break-all;
+}
+.icon-small {
+  height: 1.8rem;
+  width: 1.8rem;
+}
+
+.red-links a {
+  color: #ae1f23;
+}
+
+.icon-medium {
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
+.icon-large {
+  height: 3.2rem;
+  width: 3.2rem;
+}
+
+.icon-hashrocket {
+  color: red;
+}
+
+.icon-twitter {
+  color: blue;
+}
+
+.icon-github {
+  color: black;
+}
+
+.copy h1, .copy h2, .copy h3, .copy p, .copy ul, .copy ol {
+  margin: 0 0 1.2em;
+}
+
+/*
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-200;
+  }
+}
+
+*/

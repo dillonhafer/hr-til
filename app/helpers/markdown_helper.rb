@@ -1,5 +1,5 @@
-require 'red_carpet_code_highlighter'
-require 'tilt/redcarpet'
+require "red_carpet_code_highlighter"
+require "tilt/redcarpet"
 
 module MarkdownHelper
   def markdown

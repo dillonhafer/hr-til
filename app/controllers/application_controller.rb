@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
 
   authem_for :developer
 
-  if credentials = ENV['basic_auth_credentials']
-    username, password = credentials.split(':', 2)
+  if credentials = ENV["basic_auth_credentials"]
+    username, password = credentials.split(":", 2)
     http_basic_authenticate_with name: username, password: password
   end
 
@@ -22,6 +22,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_cache_header
-    headers['Cache-Control'] = 'no-cache, no-store'
+    headers["Cache-Control"] = "no-cache, no-store"
   end
 end

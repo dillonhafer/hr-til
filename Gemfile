@@ -1,59 +1,50 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.3.3'
+ruby "3.2.0"
 
-gem 'rails', '~> 5.x'
-
-gem 'active_model_serializers'
-gem 'airbrake'
-gem 'authem'
-gem 'autoprefixer-rails'
-gem 'coffee-rails', '~> 4.1.0'
-gem 'dynamic_form'
-gem 'haml-rails'
-gem 'httparty'
-gem 'jbuilder', '~> 2.0'
-gem 'jquery-rails'
-gem 'kaminari'
-gem 'omniauth-google-oauth2'
-gem 'pg'
-gem 'puma'
-gem 'rack-cors', require: 'rack/cors'
-gem 'redcarpet'
-gem 'rouge'
-gem 'sass-rails', '~> 5.0'
-gem 'scenic', '~> 1.3'
-gem 'sucker_punch', '~> 2.0'
-gem 'twitter'
-gem 'uglifier', '>= 1.3.0'
-
-group :development do
-  gem 'brakeman', require: false
-  gem 'bullet'
-  gem 'phil'
-  gem 'spring'
-end
+gem "active_model_serializers"
+gem "authem"
+gem "dynamic_form"
+gem "haml-rails"
+gem "httparty"
+gem "jbuilder"
+gem "jsbundling-rails", "~> 1.0"
+gem "kaminari"
+gem "omniauth-google-oauth2"
+gem "pg"
+gem "puma", "~> 5.0"
+gem "rails", "~> 7"
+gem "redcarpet"
+gem "rouge"
+gem "sprockets-rails"
+gem "stimulus-rails"
+gem "scenic"
+gem "tailwindcss-rails", "~> 2.0"
+gem "turbo-rails"
+gem "twitter"
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
-  gem 'factory_girl_rails'
-  gem 'figaro'
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'rspec-rails'
-end
-
-group :production do
-  gem 'rails_12factor'
+  gem "brakeman", require: false
+  gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "dotenv-rails"
+  gem "factory_bot_rails"
+  gem "mina"
+  gem "phil"
+  gem "pry-rails"
+  gem "pry-byebug"
+  gem "rspec-rails"
+  gem "standard"
 end
 
 group :test do
-  gem 'capybara-webmock'
-  gem 'cucumber-rails', require: false
-  gem 'database_cleaner'
-  gem 'flatware-cucumber', require: false
-  gem 'flatware-rspec', require: false
-  gem 'launchy'
-  gem 'rails-controller-testing'
-  gem 'selenium-webdriver'
-  gem 'webmock'
+  gem "capybara-webmock"
+  gem "database_cleaner"
+  gem "launchy"
+  gem "rails-controller-testing"
+  gem "selenium-webdriver"
+  gem "simplecov", "~> 0.21.2"
+  gem "webmock"
+  gem "webdrivers"
 end

@@ -1,4 +1,4 @@
-class AddSlackNameToDevelopers < ActiveRecord::Migration
+class AddSlackNameToDevelopers < ActiveRecord::Migration[5.0]
   def up
     execute <<-SQL
       alter table developers add column slack_name varchar;

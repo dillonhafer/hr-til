@@ -1,12 +1,15 @@
-%section#post_edit
+%section#post_edit(data-controller="post-preview")
   %header.page_head
-    %h1 Create Post
-  = render 'form'
+  %div{class: "bg-white p-10 drop-shadow-md"}
+    %h1{class: page_title_classes + " my-6"} Create Post
+    = render 'form'
 
-  %article.post
-    %section
-      .post__content.copy
-        %h1.title_preview
-        .content_preview
-        %footer
-          %p.word_count
+  %article.post{ class: "flex align-start mb-[3vw] justify-center mt-12" }
+    %section{class: "bg-white drop-shadow-md"}
+      .post__content.copy{class: "p-4 md:p-14"}
+        %h1{class: "text-2xl font-semibold title_preview", data: {"post-preview-target": "title"}}
+        .content_preview(data-post-preview-target="body")
+        %footer.mt-4
+          %p.word_count.text-right.italic
+            word count:
+            %span(data-post-preview-target="wordCount")

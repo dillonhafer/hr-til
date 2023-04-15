@@ -1,22 +1,22 @@
-#profile_edit
+#profile_edit.bg-white.p-10
   %header.page_head
-    %h1 My Profile
+    %h1{class: page_title_classes} My Profile
   = form_for developer, url: profile_path do |f|
     %dl
       %dt
-        = label_tag :email
-        %dd= developer.email
+        = label_tag :email, nil, class: "font-bold"
+        %dd.mb-4= developer.email
       %dt
-        = f.label :slack_name
-        %dd= f.text_field :slack_name, placeholder: 'Enter name...'
+        = f.label :slack_name, nil, class: "font-bold"
+        %dd.mb-4= f.text_field :slack_name, placeholder: 'Enter name...', class: "w-full border border-light focus:outline-none focus:ring-1 focus:ring-blue"
       %dt
-        = f.label :twitter_handle
+        = f.label :twitter_handle, nil, class: "font-bold"
         = f.error_message_on :twitter_handle
-      %dd= f.text_field :twitter_handle, placeholder: 'Enter handle...'
+      %dd.mb-4= f.text_field :twitter_handle, placeholder: 'Enter handle...', class: "w-full border border-light focus:outline-none focus:ring-1 focus:ring-blue"
       %dt
-        = f.label :editor
+        = f.label :editor, nil, class: "font-bold"
         = f.error_message_on :editor
-      %dd= f.select :editor, options_for_select(Developer.editor_options, selected: developer.editor)
-    %fieldset.actions
-      = f.submit 'Submit'
-      = link_to 'cancel', root_path
+      %dd.mb-4= f.select :editor, options_for_select(Developer.editor_options, selected: developer.editor), {},class: "border border-light focus:outline-none focus:ring-1 focus:ring-blue"
+    %fieldset.actions.mt-4
+      = f.submit 'Submit', class: "uppercase text-white bg-navy px-6 py-2 cursor-pointer hover:bg-red font-['Raleway'] tracking-widest"
+      = link_to 'cancel', root_path, class: "text-red px-6 py-2 hover:text-navy"

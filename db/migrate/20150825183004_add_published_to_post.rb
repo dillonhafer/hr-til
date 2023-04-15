@@ -1,4 +1,4 @@
-class AddPublishedToPost < ActiveRecord::Migration
+class AddPublishedToPost < ActiveRecord::Migration[5.0]
   class Post < ActiveRecord::Base
   end
 

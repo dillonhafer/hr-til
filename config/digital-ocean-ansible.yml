@@ -1,0 +1,201 @@
+---
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  vars:
+    caddy_apt_repository: deb https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main
+    caddy_apt_gpg_key: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
+    caddy_apt_ignore_key_error: true
+    postgres_user: root
+    domain: til.dillonhafer.com
+    postgres_db: hr_til_production
+    mina_dir: /var/www/hr-til-production
+    pg_version: 15
+    ubuntu_common_required_packages:
+      - git
+      - zlib1g
+      - zlib1g-dev
+      - libpq-dev
+      - vim
+      - tmux
+      - build-essential
+      - make
+      - python3-psycopg2
+      - "postgresql-{{ pg_version }}"
+      - "postgresql-contrib-{{ pg_version }}"
+      - "postgresql-client-{{ pg_version }}"
+      - "postgresql-server-dev-{{ pg_version }}"
+      - caddy
+      - libvips
+      - libyaml-dev
+  tasks:
+    - name: Add PostgreSQL repository key
+      apt_key:
+        url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+        state: present
+
+    - name: Add PostgreSQL repository
+      apt_repository:
+        repo: deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main
+        state: present
+
+    - name: Add Caddy apt key.
+      apt_key:
+        url: "{{ caddy_apt_gpg_key }}"
+        id: 65760C51EDEA2017CEA2CA15155B6D79CA56EA34
+        state: present
+      register: add_repository_key
+      ignore_errors: "{{ caddy_apt_ignore_key_error }}"
+
+    - name: Add Caddy repository.
+      apt_repository:
+        repo: "{{ caddy_apt_repository }}"
+        state: present
+        update_cache: true
+
+    - name: Update APT package cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Upgrade APT to the latest packages
+      apt:
+        upgrade: safe
+
+    - name: Install required packages
+      apt:
+        state: present
+        pkg: "{{ item }}"
+      loop: "{{ ubuntu_common_required_packages }}"
+
+    - name: Set timezone to Eastern
+      timezone:
+        name: America/New_York
+
+    - name: Add app database user
+      postgresql_user:
+        name: "{{ postgres_user }}"
+        role_attr_flags: SUPERUSER
+      become: yes
+      become_user: postgres
+
+    - name: Create application database
+      postgresql_db:
+        name: "{{ postgres_db }}"
+      become: yes
+      become_user: postgres
+
+    - name: Allow local socket logins
+      lineinfile:
+        dest: "/etc/postgresql/{{ pg_version }}/main/pg_hba.conf"
+        insertafter: "^# TYPE.*DATABASE.*USER"
+        line: "local all all trust"
+        state: present
+      notify: restart postgres
+
+    - name: Download asdf
+      git:
+        repo: https://github.com/asdf-vm/asdf.git
+        dest: "/root/.asdf"
+        version: v0.10.2
+
+    - name: setup asdf
+      lineinfile:
+        path: /root/.bashrc
+        state: present
+        line: '. "$HOME/.asdf/asdf.sh"'
+
+    - name: setup completions
+      lineinfile:
+        path: /root/.bashrc
+        state: present
+        line: '. "$HOME/.asdf/completions/asdf.bash"'
+
+    - name: add ruby plugin to asdf
+      shell: "source /root/.asdf/asdf.sh && asdf plugin add ruby || true"
+      args:
+        executable: /usr/bin/bash
+
+    - name: install ruby with asdf
+      shell: "source /root/.asdf/asdf.sh && asdf install ruby 3.2.0"
+      args:
+        executable: /usr/bin/bash
+
+    - name: add nodejs plugin to asdf
+      shell: "source /root/.asdf/asdf.sh && asdf plugin add nodejs || true"
+      args:
+        executable: /usr/bin/bash
+
+    - name: install nodejs with asdf
+      shell: "source /root/.asdf/asdf.sh && asdf install nodejs 16.14.0"
+      args:
+        executable: /usr/bin/bash
+
+    - name: install yarn
+      shell: "source /root/.asdf/asdf.sh && asdf local nodejs 16.14.0 && npm install --global yarn"
+      args:
+        executable: /usr/bin/bash
+
+    - name: create mina shared folder
+      file:
+        path: "{{ mina_dir }}/shared"
+        state: directory
+
+    - name: copy .env
+      template:
+        src: ../.env.production
+        dest: "{{ mina_dir }}/shared/.env"
+
+    - name: create config folder for master key
+      file:
+        path: "{{ mina_dir }}/shared/config"
+        state: directory
+
+    - name: copy puma service
+      template:
+        src: ./puma.service
+        dest: /etc/systemd/system/puma.service
+        mode: "+x"
+
+    - name: copy puma socket
+      template:
+        src: ./puma.socket
+        dest: /etc/systemd/system/puma.socket
+        mode: "+x"
+
+    - name: start puma service
+      systemd:
+        name: puma.service
+        enabled: true
+
+    - name: Copy caddy config
+      copy:
+        content: |
+          {{ domain }} {
+            encode gzip
+            reverse_proxy localhost:9292
+
+            handle {
+              root * {{ mina_dir }}/current/public
+              file_server {
+                pass_thru
+              }
+            }
+          }
+
+        dest: /etc/caddy/Caddyfile
+        owner: caddy
+        group: caddy
+
+    - name: Start caddy
+      service:
+        name: caddy
+        state: restarted
+      changed_when: >
+        "Will always run, don't show that it changed" == 1
+
+  handlers:
+    - name: restart postgres
+      service:
+        name: postgresql
+        state: restarted

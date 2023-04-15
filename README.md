@@ -17,6 +17,8 @@ code](https://github.com/hashrocket/tilex)), and the Rails application is no
 longer in production or actively maintained by Hashrocket. Thanks to all of our
 [contributors](https://github.com/hashrocket/hr-til/graphs/contributors)!
 
+This Rails application now in production and actively maintained by Dillon Hafer
+
 ### Install
 
 If you are creating your own version of the site,
@@ -27,9 +29,8 @@ Then, follow these setup steps:
 ```sh
 $ git clone https://github.com/hashrocket/hr-til
 $ cd hr-til
-$ gem install bundler
-$ bundle install
-$ cp config/application.yml{.example,}
+$ bundle
+$ cp .env{.example,}
 $ rake db:create db:migrate db:seed
 $ rails s
 ```
@@ -50,9 +51,10 @@ variables:
 ```yml
 # config/application.yml
 
-permitted_domains: 'hashrocket.com|hshrckt.com'
-permitted_emails: 'friend@whitelist.com'
+permitted_domains: "hashrocket.com|hshrckt.com"
+permitted_emails: "friend@whitelist.com"
 ```
+
 Ensure you have set the google client id and google client secret via Oauth instructions.
 
 Once set, visit '/admin' and log in with a permitted email address or domain.
@@ -76,7 +78,7 @@ $ flatware rspec && flatware cucumber
 
 - The gem `selenium-webdriver` depends on the Firefox browser.
 - The gems `flatware-rspec` and `flatware-cucumber` require ZeroMQ. Learn more
-[here](https://github.com/briandunn/flatware).
+  [here](https://github.com/briandunn/flatware).
 
 ### Environmental Variables
 
@@ -128,3 +130,12 @@ TIL is supported by the team at [Hashrocket, a
 multidisciplinary design and development consultancy](https://hashrocket.com). If you'd like to [work with
 us](https://hashrocket.com/contact-us/hire-us) or [join our
 team](https://hashrocket.com/contact-us/jobs), don't hesitate to get in touch.
+
+### Deploy on a DigitalOcean droplet
+
+```
+cp .env.example .env.production
+ansible-playbook -i til.dillonhafer.com, config/digital-ocean-ansible.yml
+mina setup
+mina deploy
+```

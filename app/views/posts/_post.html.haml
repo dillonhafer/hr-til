@@ -1,34 +1,35 @@
-%article.post{ :class => unless post.published? then 'draft' end }
-  %section
-    .post__content.copy
-      %h1= link_to post.title, post
-      = find_and_preserve markdown_render post.body
-      %footer
+%article.post{ class: "flex align-start mb-[3vw] justify-center" }
+  %section{class: "bg-white drop-shadow-md"}
+    .post__content.copy{class: "p-4 md:p-14"}
+      %h1{class: "text-2xl font-semibold"}= link_to post.title, post
+      =  markdown_render post.body
+      %footer{class: "font-['Lora'] italic"}
         - if content_for?(:social)
-          %p.post__social= content_for :social
-        %p
+          %p{class: "post__social text-red"}= content_for :social
+        %p.text-right
           = link_to post.developer_username, post.developer
           %br
-          = link_to post.display_date.strftime("%B %-e, %Y"), post, class: "post__permalink"
+          = link_to post.display_date.strftime("%B %-e, %Y"), post, class: "post__permalink font-['Lora']"
           - unless post.published?
             (draft)
-    %aside
-      %ul
-        %li
-          = link_to "##{post.channel_name}", post.channel, class: "post__tag-link"
-        %li
-          = link_to [post, format: 'md'], class: "post__raw-link", target: "_blank" do
-            view raw
-        %li
-          = link_to post, class: 'post__permalink' do
+    %aside{class: "p-1"}
+      %ul{class: "flex w-full uppercase gap-1 font-['Raleway'] font-medium text-sm"}
+        %li{class: "flex-auto text-green border-t-2 border-t-green"}
+          = link_to "##{post.channel_name}", post.channel, class: "post__tag-link block text-center py-2 px-4"
+        %li{class: "flex-auto text-blue border-t-2 border-t-blue"}
+          = link_to post, class: 'post__permalink block text-center py-2 px-4' do
             permalink
+        %li{class: "flex-auto text-purple border-t-2 border-t-purple"}
+          = link_to [post, format: 'md'], class: "post__raw-link block text-center py-2 px-4", target: "_blank" do
+            raw
         - if editable?(post)
-          %li
-            = link_to "edit", [:edit, post], class: "post__edit-link"
+          %li{class: "flex-auto text-blue border-t-2 border-t-blue"}
+            = link_to "edit", [:edit, post], class: "post__edit-link block text-center py-2 px-4"
         - unless post.draft?
-          %li
-            = link_to post_path(post), class: "js-like-action post__like-link", id: post.slug do
-              %span.post__like-count= post.likes
-              %span.post__like-label likes
+          %li{class: "flex-auto border-t-2 border-t-pink"}
+            = link_to post_path(post), class: "js-like-action post__like-link block text-pink text-center py-2 px-4", id: post.slug do
+              %span{class: "post__like-label flex items-center justify-center gap-1 text-navy"}
+                = icon("heart", "Statistics", "post__like-label h-5 w-5 text-blue animated animate-pulse")
+                %span.post__like-count.text-pink= post.likes
 
 = content_for :post_nav

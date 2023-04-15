@@ -1,0 +1,17 @@
+[Unit]
+Description=Puma HTTP Server
+After=network.target
+
+# Uncomment for socket activation (see below)
+Requires=puma.socket
+
+[Service]
+EnvironmentFile=/var/www/hr-til-production/shared/.env
+Type=simple
+User=root
+WorkingDirectory=/var/www/hr-til-production/current
+ExecStart=/usr/bin/bash -lc 'PATH=/root/.asdf/shims:$PATH exec bin/puma -C config/puma.rb'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

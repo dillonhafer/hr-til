@@ -1,6 +1,7 @@
 %head
   %title= [content_for(:page_title), SITE_NAME, ENV['organization_name']].compact.join(' - ').html_safe
   = csrf_meta_tags
+  = csp_meta_tag
 
   %meta(name="format-detection" content="telephone=no")
   %meta(name="description" content="TIL is an open-source project by Hashrocket that exists to catalogue the sharing & accumulation of knowledge as it happens day-to-day.")
@@ -18,11 +19,12 @@
   %meta(name="twitter:description" content="TIL is an open-source project by Hashrocket that exists to catalogue the sharing & accumulation of knowledge as it happens day-to-day. Posts have a 200-word limit, and posting is open to any Rocketeer as well as select friends of the team. We hope you enjoy learning along with us.")
   %meta(name="twitter:image" content="https://til.hashrocket.com/assets/til_twittercard.png")
 
-  %link(href='//fonts.googleapis.com/css?family=Raleway:700,900' rel='stylesheet' type='text/css')
-  %link(href='//fonts.googleapis.com/css?family=Lora:400,700italic,700,400italic' rel='stylesheet' type='text/css')
+  %link(href='https://fonts.googleapis.com/css?family=Raleway:700,900&display=swap' rel='stylesheet' type='text/css')
+  %link(href='https://fonts.googleapis.com/css?family=Lora:400,700italic,700,400italic' rel='stylesheet' type='text/css')
 
-  = stylesheet_link_tag 'application', media: 'all'
-  = javascript_include_tag 'application'
+  = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+  = stylesheet_link_tag "application", "data-turbo-track": "reload"
+  = javascript_include_tag "application", "data-turbo-track": "reload"
   = favicon_link_tag 'favicon.png'
 
   = yield :canonical

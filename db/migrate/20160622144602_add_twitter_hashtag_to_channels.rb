@@ -1,4 +1,4 @@
-class AddTwitterHashtagToChannels < ActiveRecord::Migration
+class AddTwitterHashtagToChannels < ActiveRecord::Migration[5.0]
   def up
     execute <<-SQL
       alter table channels

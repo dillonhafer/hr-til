@@ -1,4 +1,4 @@
-class AddPublishedAtToPosts < ActiveRecord::Migration
+class AddPublishedAtToPosts < ActiveRecord::Migration[5.0]
   def up
     execute <<-SQL
       alter table posts add column published_at timestamptz;

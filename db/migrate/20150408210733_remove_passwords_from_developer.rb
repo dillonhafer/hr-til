@@ -1,4 +1,4 @@
-class RemovePasswordsFromDeveloper < ActiveRecord::Migration
+class RemovePasswordsFromDeveloper < ActiveRecord::Migration[5.0]
   def up
     remove_column :developers, :password_digest
     remove_column :developers, :password_reset_token

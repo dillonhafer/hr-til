@@ -3,6 +3,7 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*
+/node_modules/*
 !/log/.keep
 /tmp
 /config/application.yml
@@ -10,3 +11,10 @@
 
 coverage
 lastest.dump
+.env
+.env.production
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+/config/master.key

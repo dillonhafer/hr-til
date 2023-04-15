@@ -1,6 +1,6 @@
 - content_for :page_title, "Posts about #{channel.name}"
 
 %section#tag
-  %header.page_head
-    %h1 #{pluralize channel.posts_count, "post"} about ##{channel.name}
+  %header{class: "page_head text-center"}
+    %h1{class: page_title_classes + " my-6"} #{pluralize channel.posts_count, "post"} about ##{channel.name}
 = render posts

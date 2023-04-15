@@ -16,10 +16,10 @@ class StatisticsController < ApplicationController
   end
 
   def hot_posts
-    hot_posts = ActiveRecord::Base.connection.execute('select id from hot_posts limit 10;')
+    hot_posts = ActiveRecord::Base.connection.execute("select id from hot_posts limit 10;")
 
     hot_posts.map do |hot_post|
-      Post.find(hot_post['id'])
+      Post.find(hot_post["id"])
     end
   end
 
@@ -31,16 +31,16 @@ class StatisticsController < ApplicationController
     @authors ||= Developer.joins(:posts)
       .merge(Post.published)
       .group(:username)
-      .order('count_all desc')
-      .count.map {|row| CountStat.new(row[0], row[1]) }
+      .order("count_all desc")
+      .count.map { |row| CountStat.new(row[0], row[1]) }
   end
 
   def channels
     @channels ||= Channel.joins(:posts)
       .merge(Post.published)
       .group(:name, :channel_id)
-      .order('count_all desc')
-      .count.map {|row| CountStat.new(row[0][0], row[1]) }
+      .order("count_all desc")
+      .count.map { |row| CountStat.new(row[0][0], row[1]) }
   end
 
   def highest_count_last_30_days

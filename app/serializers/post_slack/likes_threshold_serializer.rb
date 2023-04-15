@@ -6,8 +6,8 @@ class PostSlack::LikesThresholdSerializer < ActiveModel::Serializer
   def text
     likes = object.likes
 
-    "#{object.developer_slack_display_name}'s post has #{likes} likes! "\
-    "#{emojis[likes_index(likes)].to_sym || '😀'} - <#{full_url}|#{encoded_title}>"
+    "#{object.developer_slack_display_name}'s post has #{likes} likes! " \
+    "#{emojis[likes_index(likes)].to_sym || "😀"} - <#{full_url}|#{encoded_title}>"
   end
 
   private
@@ -15,7 +15,7 @@ class PostSlack::LikesThresholdSerializer < ActiveModel::Serializer
   def encoded_title
     # Escape only three symbols:
     # https://api.slack.com/docs/formatting#how_to_escape_characters
-    object.title.gsub('&', '&amp;').gsub('<', '&lt;').gsub('>','&gt;')
+    object.title.gsub("&", "&amp;").gsub("<", "&lt;").gsub(">", "&gt;")
   end
 
   def full_url
@@ -27,6 +27,6 @@ class PostSlack::LikesThresholdSerializer < ActiveModel::Serializer
   end
 
   def emojis
-    [ '🎉', '🎂', '✨', '💥', '❤️', '🎈', '👑', '🎓', '🏆', '💯 ']
+    ["🎉", "🎂", "✨", "💥", "❤️", "🎈", "👑", "🎓", "🏆", "💯 "]
   end
 end

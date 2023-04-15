@@ -3,6 +3,8 @@ class PostsController < ApplicationController
   before_action :require_developer, except: [:index, :show, :like, :unlike]
   before_action :authorize_developer, only: [:edit, :update]
 
+  helper_method :post
+
   def preview
     render layout: false
   end
@@ -16,9 +18,9 @@ class PostsController < ApplicationController
     @post.developer = current_developer
     if @post.save
       path = process_post
-      redirect_to path, notice: display_name(@post) + 'created'
+      redirect_to path, notice: display_name(@post) + "created"
     else
-      render :new
+      render :new, status: 422
     end
   end
 
@@ -52,9 +54,9 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       @post.publish if params[:published] && !@post.published?
       SocialMessaging::TwitterStatus.new(@post).post_to_twitter
-      redirect_to @post, notice: display_name(@post) + 'updated'
+      redirect_to @post, notice: display_name(@post) + "updated"
     else
-      render :edit
+      render :edit, status: 422
     end
   end
 
@@ -67,7 +69,7 @@ class PostsController < ApplicationController
     post = Post.find_by_slug(params[:slug])
     respond_to do |format|
       if post.increment_likes
-        format.json { render json: { likes: post.likes } }
+        format.json { render json: {likes: post.likes} }
         format.html { redirect_to post }
       end
     end
@@ -77,7 +79,7 @@ class PostsController < ApplicationController
     post = Post.find_by_slug(params[:slug])
     respond_to do |format|
       if post.decrement_likes
-        format.json { render json: { likes: post.likes } }
+        format.json { render json: {likes: post.likes} }
         format.html { redirect_to post }
       end
     end
@@ -94,6 +96,8 @@ class PostsController < ApplicationController
   end
 
   private
+
+  attr_reader :post
 
   def process_post
     if params[:published]
@@ -121,7 +125,7 @@ class PostsController < ApplicationController
   end
 
   def untitled_slug
-    params[:titled_slug].split('-').first
+    params[:titled_slug].split("-").first
   end
 
   def set_post
@@ -130,7 +134,7 @@ class PostsController < ApplicationController
 
   def authorize_developer
     unless editable?(@post)
-      redirect_to root_path, alert: 'You can only edit your own posts'
+      redirect_to root_path, alert: "You can only edit your own posts"
     end
   end
 
@@ -139,6 +143,6 @@ class PostsController < ApplicationController
   end
 
   def display_name(post)
-    post.published? ? 'Post ' : 'Draft '
+    post.published? ? "Post " : "Draft "
   end
 end

@@ -1,4 +1,4 @@
-class AddMaxLikes < ActiveRecord::Migration
+class AddMaxLikes < ActiveRecord::Migration[5.0]
   def up
     execute <<-SQL
       alter table posts add column max_likes integer not null default 1;

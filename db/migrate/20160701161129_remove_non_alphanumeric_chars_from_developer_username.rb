@@ -1,10 +1,11 @@
-class RemoveNonAlphanumericCharsFromDeveloperUsername < ActiveRecord::Migration
+class RemoveNonAlphanumericCharsFromDeveloperUsername < ActiveRecord::Migration[5.0]
   class Developer < ActiveRecord::Base
   end
+
   def up
     Developer.find_each do |developer|
-      if developer.username != developer.username.gsub(/[^0-9a-z]/i, '')
-        developer.username = developer.username.gsub(/[^0-9a-z]/i, '')
+      if developer.username != developer.username.gsub(/[^0-9a-z]/i, "")
+        developer.username = developer.username.gsub(/[^0-9a-z]/i, "")
         developer.save!
       end
     end

@@ -1,12 +1,12 @@
-require 'rails_helper'
+require "rails_helper"
 describe SessionsController do
-  describe '#create' do
-    context 'with oauth' do
-      it 'signs in existing developer by email' do
-        developer = FactoryGirl.create :developer, email: 'jake@example.com'
-        request.env['omniauth.auth'] = {
-          'info' => {
-            'email' => 'jake@example.com'
+  describe "#create" do
+    context "with oauth" do
+      it "signs in existing developer by email" do
+        developer = FactoryBot.create :developer, email: "jake@example.com"
+        request.env["omniauth.auth"] = {
+          "info" => {
+            "email" => "jake@example.com"
           }
         }
 
@@ -17,11 +17,11 @@ describe SessionsController do
         expect(Authem::Session.last.subject_id).to eq developer.id
       end
 
-      it 'signs up a new developer by email' do
-        request.env['omniauth.auth'] = {
-          'info' => {
-            'email' => 'newdev@example.com',
-            'name'  => 'John Smith'
+      it "signs up a new developer by email" do
+        request.env["omniauth.auth"] = {
+          "info" => {
+            "email" => "newdev@example.com",
+            "name" => "John Smith"
           }
         }
 
