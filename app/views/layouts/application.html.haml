@@ -2,7 +2,7 @@
 %html(lang="en-US")
   = render "layouts/head"
 
-  %body{class: "bg-light font-['Lora'] text-dark"}
+  %body{class: "bg-light font-['Lora'] text-dark", data: {controller: "easter"}}
     - if developer_signed_in?
       %nav{class: "admin_panel fixed top-0 left-0 right-0 text-center z-40"}
         %ul{class: "inline-flex bg-white/90 font-normal text-xs font-['Raleway'] drop-shadow-md"}

@@ -27,7 +27,7 @@
             = link_to "edit", [:edit, post], class: "post__edit-link block text-center py-2 px-4"
         - unless post.draft?
           %li{class: "flex-auto border-t-2 border-t-pink"}
-            = link_to post_path(post), class: "js-like-action post__like-link block text-pink text-center py-2 px-4", id: post.slug do
+            = button_to [post, :like], class: "js-like-action post__like-link block text-pink text-center py-2 px-4", id: post.slug do
               %span{class: "post__like-label flex items-center justify-center gap-1 text-navy"}
                 = icon("heart", "Statistics", "post__like-label h-5 w-5 text-blue animated animate-pulse")
                 %span.post__like-count.text-pink= post.likes
