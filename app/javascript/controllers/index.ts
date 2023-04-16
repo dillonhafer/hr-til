@@ -2,7 +2,6 @@ import { Application } from "@hotwired/stimulus";
 import view_toggle from "controllers/view_toggle";
 import character_limit from "controllers/character_limit";
 import post_preview from "controllers/post_preview";
-import post_likes from "controllers/post_likes";
 import easter from "controllers/easter";
 
 declare global {
@@ -41,4 +40,3 @@ window.Stimulus.register("view-toggle", view_toggle);
 window.Stimulus.register("character-limit", character_limit);
 window.Stimulus.register("post-preview", post_preview);
 window.Stimulus.register("easter", easter);
-window.Stimulus.register("post-likes", post_likes);
