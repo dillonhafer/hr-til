@@ -26,9 +26,8 @@ Rails.application.routes.draw do
     post "/auth/developer/callback", to: "sessions#create"
   end
 
-  get "/admin" => redirect("/auth/google_oauth2")
   post "/auth/google_oauth2", as: "google_oauth2"
-  post "/auth/google_oauth2/callback", to: "sessions#create"
+  get "/auth/google_oauth2/callback", to: "sessions#create"
   get "account/signout", to: "sessions#destroy"
 
   # Channels
