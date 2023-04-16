@@ -8,5 +8,7 @@ module SessionHelper
 
     expect(current_path).to eq root_path
     expect(page).to have_content user.username
+
+    user
   end
 end
