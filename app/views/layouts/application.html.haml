@@ -52,6 +52,5 @@
         %li.site_nav__statistics
           = link_to icon("stats", "Statistics", "icon icon-stats icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), statistics_path, class: "site_nav__link cursor-pointer block p-3 text-black"
 
-        = unless current_developer
-          %li.site_nav__statistics
-            = link_to icon("signin", "Sign In", "icon icon-stats icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), admin_path, class: "site_nav__link cursor-pointer block p-3 text-black"
+        %li.site_nav__statistics
+          = link_to(icon("signin", "Sign In", "icon icon-stats icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), admin_path, class: "site_nav__link cursor-pointer block p-3 text-black") unless current_developer
