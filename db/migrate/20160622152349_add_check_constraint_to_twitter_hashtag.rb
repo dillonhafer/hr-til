@@ -1,4 +1,4 @@
-class AddCheckConstraintToTwitterHashtag < ActiveRecord::Migration
+class AddCheckConstraintToTwitterHashtag < ActiveRecord::Migration[5.0]
   def up
     execute <<-SQL
       alter table channels add constraint twitter_hashtag_alphanumeric_constraint check (twitter_hashtag ~ '^[\\w\\d]+$');

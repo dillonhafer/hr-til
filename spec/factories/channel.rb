@@ -1,11 +1,11 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :channel do
-    name 'phantomjs'
-    twitter_hashtag 'phantomjs'
+    name { "phantomjs" }
+    twitter_hashtag { "phantomjs" }
   end
 
   factory :ruby_channel, class: Channel do
-    name 'ruby'
-    twitter_hashtag 'ruby'
+    name { "ruby" }
+    twitter_hashtag { "ruby" }
   end
 end

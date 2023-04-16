@@ -1,11 +1,11 @@
 - content_for :page_title, "Posts by #{developer.username}"
 %section#author
   %header.page_head
-    %h1
+    %h1{class: page_title_classes + " my-6 flex items-center justify-center gap-3"}
       #{pluralize developer.posts_count, "post"}
       by #{developer.username}
       - handle = developer.twitter_handle
       - if handle
-        = link_to "@#{handle}", "https://twitter.com/#{handle}", class: "author_twitter", target: "_blank"
+        = link_to icon("twitter", "", "h-6 w-6 text-blue"), "https://twitter.com/#{handle}", class: "author_twitter", target: "_blank"
 
 = render posts

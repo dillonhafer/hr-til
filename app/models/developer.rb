@@ -1,11 +1,11 @@
 class Developer < ApplicationRecord
   has_many :posts
-  validates :email, presence: true, format: { with: Proc.new { /\A(.+@(#{ENV['permitted_domains']})|(#{ENV['permitted_emails']}))\z/ } }
-  validates :username, presence: true, uniqueness: true, format: { with: /\A[A-Za-z0-9]+\Z/ }
-  validates :twitter_handle, length: { maximum: 15 }, format: { with: /\A(?=.*[a-z])[a-z_\d]+\Z/i }, allow_blank: true
+  validates :email, presence: true, format: {with: proc { /\A(.+@(#{ENV['permitted_domains']})|(#{ENV['permitted_emails']}))\z/ }}
+  validates :username, presence: true, uniqueness: true, format: {with: /\A[A-Za-z0-9]+\Z/}
+  validates :twitter_handle, length: {maximum: 15}, format: {with: /\A(?=.*[a-z])[a-z_\d]+\Z/i}, allow_blank: true
 
   def self.editor_options
-    ['Text Field', 'Ace (w/ Vim)', 'Ace'].freeze
+    ["Text Field", "Ace (w/ Vim)", "Ace"].freeze
   end
 
   validates :editor, inclusion: {
@@ -18,7 +18,7 @@ class Developer < ApplicationRecord
   end
 
   def twitter_handle=(handle)
-    self[:twitter_handle] = handle.gsub(/^@+/, '').presence
+    self[:twitter_handle] = handle.gsub(/^@+/, "").presence
   end
 
   def slack_name=(name)

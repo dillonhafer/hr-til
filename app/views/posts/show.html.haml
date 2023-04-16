@@ -5,12 +5,12 @@
 
 - content_for :post_nav do
   - if @post.published? && multiple_posts?
-    %nav.pagination
+    %nav{class: "pagination flex items-center justify-center gap-8"}
       - unless oldest_post? @post
-        = link_to previous_post(@post), class: "pagination_newer" do
+        = link_to previous_post(@post), class: "pagination_newer bg-white py-2 px-6 uppercase text-blue text-sm hover:text-red font-medium secondary-typeface" do
           previous TIL
       - unless newest_post? @post
-        = link_to next_post(@post), class: "pagination_older" do
+        = link_to next_post(@post), class: "pagination_older bg-white py-2 px-6 uppercase text-blue text-sm hover:text-red font-medium secondary-typeface" do
           next TIL
 
 - content_for :social do

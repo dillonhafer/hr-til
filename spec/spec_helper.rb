@@ -1,7 +1,7 @@
-require 'pathname'
-require 'webmock/rspec'
+require "pathname"
+require "webmock/rspec"
 
-Dir[Pathname(__FILE__).dirname.join('support/*.rb')].each { |file| require file }
+Dir[Pathname(__FILE__).dirname.join("support/*.rb")].each { |file| require file }
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -12,5 +12,5 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.default_formatter = 'doc' if config.files_to_run.one?
+  config.default_formatter = "doc" if config.files_to_run.one?
 end

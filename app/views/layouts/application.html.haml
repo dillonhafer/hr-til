@@ -2,54 +2,55 @@
 %html(lang="en-US")
   = render "layouts/head"
 
-  %body
+  %body{class: "bg-light font-['Lora'] text-dark"}
     - if developer_signed_in?
-      %nav.admin_panel
-        %ul
-          %li= link_to current_developer.username, current_developer
-          %li= link_to "Sign Out", account_signout_path
-          %li= link_to "Create Post", new_post_path
-          %li= link_to "Drafts", drafts_path
-          %li= link_to "Profile", edit_profile_path
+      %nav{class: "admin_panel fixed top-0 left-0 right-0 text-center z-40"}
+        %ul{class: "inline-flex bg-white/90 font-normal text-xs font-['Raleway'] drop-shadow-md"}
+          %li= link_to current_developer.username, current_developer, class: "text-blue py-2 px-4 block hover:text-red"
+          %li= link_to "Sign Out", account_signout_path, class: "text-blue py-2 px-4 block hover:text-red"
+          %li= link_to "Create Post", new_post_path, class: "text-blue py-2 px-4 block hover:text-red"
+          %li= link_to "Drafts", drafts_path, class: "text-blue py-2 px-4 block hover:text-red"
+          %li= link_to "Profile", edit_profile_path, class: "text-blue py-2 px-4 block hover:text-red"
 
-    %header.site_head
-      %div
-        %h1= link_to SITE_NAME, root_path
-        %h2
-          = link_to "A Hashrocket project", "https://hashrocket.com", class: "hr"
+    %header{class: "site_head fixed top-0 left-0 right-0 text-center pt-[6vw] py-[2vh] px-[6vw] z-10"}
+      %div{class: "inline-block relative"}
+        %h1= link_to SITE_NAME, root_path, class: "text-navy text-3xl mt-12 md:mt-[unset] md:text-8xl block uppercase tracking-widest leading-none font-black font-['Raleway']"
+        %h2{class: "flex justify-end flex-col md:flex-row mr-[1vw] gap-2"}
+          = link_to icon("hashrocket", "Hashrocket", "h-5 w-5 mr-1") + "A Hashrocket project", "https://hashrocket.com", class: "text-red text-right text-lg font-bold flex items-center py-1 font-['Raleway'] tracking-widest uppercase"
           %span
-            = link_to "Follow on Twitter", "https://twitter.com/hashrockettil", class: "twitter"
+            = link_to icon("twitter", "Twitter", "h-5 w-5 mr-1") + "Follow on Twitter", "https://twitter.com/hashrockettil", class: "text-twitter-color text-right text-lg font-bold flex items-center py-1 font-['Raleway'] tracking-widest uppercase"
 
     = render 'shared/flash'
 
-    %main= yield
+    %main{class: "z-20 mt-60 relative mb-28 max-w-[90%] md:max-w-[60%] mx-auto"}= yield
 
-    %nav.site_nav
-      %ul
-        %li.site_nav__about
-          = link_to "?", "#", class: "site_nav__link"
-          .site_nav__toggle
-            .copy
-              :markdown
-                TIL is an open-source project by
-                [Hashrocket](https://hashrocket.com) that exists to catalogue
-                the sharing & accumulation of knowledge as it happens
-                day-to-day. Posts have a 200-word limit, and posting is open to
-                any Rocketeer as well as selected friends of Hashrocket. We
-                hope you enjoy learning along with us.
-              %ul.social
-                %li= link_to "/hashrockettil", "https://twitter.com/hashrockettil", class: "social_twitter"
-                %li= link_to "/hashrocket/hr-til", "https://github.com/hashrocket/hr-til", class: "social_github"
+    %nav{class: "site_nav fixed bottom-0 left-0 z-30 right-0 md:right-[unset]"}
+      %ul{class: "flex flex-row justify-between bg-white/90 md:bg-transparent md:flex-col"}
+        %li{class: "site_nav__searchdata relative", data: {controller: "view-toggle", "view-toggle-view-class": "hidden"}}
+          = link_to icon("search", "Search", "icon icon-search icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), "#", class: "site_nav__link cursor-pointer block p-3", data: {action: "click->view-toggle#toggle"}
+          %div{class: "site_nav__toggle absolute top-0 left-full hidden", data: {"view-toggle-target": "view"}}>
+            = form_tag root_path, method: 'get', class: "flex bg-white drop-shadow-md" do
+              = search_field_tag :q, params[:q], class: "border-0 focus:outline-none focus:ring-0"
+              = button_tag 'Search', name: nil, class: "uppercase text-white bg-navy px-6 py-2 cursor-pointer hover:bg-red font-['Raleway'] tracking-widest"
+
+        %li{class: "site_nav__about relative primary-typeface", data: {controller: "view-toggle", "view-toggle-view-class": "hidden"}}
+          = link_to icon("help", "About TIL", "icon icon-help icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), "#", data: {action: "click->view-toggle#toggle"}, class: "site_nav__link cursor-pointer block p-3"
+          %div{class: "site_nav__toggle absolute bottom-0 left-full hidden", data: {"view-toggle-target": "view"}}
+            .bg-white.drop-shadow-md.p-6.w-96.italic.font-light.text-sm
+              .red-links.text-sm
+                :markdown
+                  TIL is an open-source project by
+                  [Hashrocket](https://hashrocket.com) that exists to catalogue
+                  the sharing & accumulation of knowledge as it happens
+                  day-to-day. Posts have a 200-word limit, and posting is open to
+                  any Rocketeer as well as selected friends of Hashrocket. We
+                  hope you enjoy learning along with us.
+              %ul.mb-0.social.flex.items-center.justify-between.secondary-typeface.not-italic.font-bold.mt-2
+                %li.flex-1.gap-1= link_to icon("twitter", "", "w-5 h-5 text-blue") + "/hashrockettil", "https://twitter.com/hashrockettil", class: "social_twitter flex items-center hover:text-blue"
+                %li.flex-1.gap-1= link_to icon("github", "", "w-5 h-5") + "/hashrocket/hr-til", "https://github.com/hashrocket/hr-til", class: "social_github flex items-center hover:text-red"
 
         %li.site_nav__statistics
-          = link_to "statistics", statistics_path, class: "site_nav__link"
+          = link_to icon("stats", "Statistics", "icon icon-stats icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), statistics_path, class: "site_nav__link cursor-pointer block p-3 text-black"
 
-        %li.site_nav__search
-          = link_to "search", "#", class: "site_nav__link"
-          .site_nav__toggle>
-            = form_tag root_path, method: 'get' do
-              = search_field_tag :q
-              = button_tag 'Search', name: nil
-
-        %li.site_nav__twitter
-          = link_to "Twitter", "https://twitter.com/hashrockettil", class: "site_nav__link"
+        %li.site_nav__statistics
+          = link_to icon("signin", "Sign In", "icon icon-stats icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), admin_path, class: "site_nav__link cursor-pointer block p-3 text-black"

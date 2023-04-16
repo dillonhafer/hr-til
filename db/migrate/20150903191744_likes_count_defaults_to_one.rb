@@ -1,4 +1,4 @@
-class LikesCountDefaultsToOne < ActiveRecord::Migration
+class LikesCountDefaultsToOne < ActiveRecord::Migration[5.0]
   def up
     execute <<-SQL
       alter table posts alter column likes set default 1;

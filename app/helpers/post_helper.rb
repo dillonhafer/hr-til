@@ -29,14 +29,13 @@ module PostHelper
     url = post_url(post)
 
     content_tag(:a,
-      'Tweet',
-      href: 'http://twitter.com/share',
-      class: 'twitter-share-button',
-      'data-text': "Today I learned: #{title}",
-      'data-via': "#{handle}",
-      'data-hashtags': "#{channel.twitter_hashtag}",
-      'data-url': "#{url}"
-    )
+      "Tweet",
+      href: "http://twitter.com/share",
+      class: "twitter-share-button",
+      "data-text": "Today I learned: #{title}",
+      "data-via": "#{handle}",
+      "data-hashtags": "#{channel.twitter_hashtag}",
+      "data-url": "#{url}")
   end
 
   def display_more_info?(post, dynamic_path)

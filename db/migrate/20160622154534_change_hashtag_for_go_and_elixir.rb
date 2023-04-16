@@ -1,4 +1,4 @@
-class ChangeHashtagForGoAndElixir < ActiveRecord::Migration
+class ChangeHashtagForGoAndElixir < ActiveRecord::Migration[5.0]
   def up
     execute <<-SQL
     update channels set twitter_hashtag = 'golang' where name = 'go';

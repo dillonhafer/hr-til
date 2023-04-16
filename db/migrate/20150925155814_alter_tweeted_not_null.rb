@@ -1,4 +1,4 @@
-class AlterTweetedNotNull < ActiveRecord::Migration
+class AlterTweetedNotNull < ActiveRecord::Migration[5.0]
   def up
     execute <<-SQL
       update posts set tweeted = false;

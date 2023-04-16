@@ -1,29 +1,37 @@
-= form_for @post do |f|
-  %dl
-    %dt
-      = f.label :title
-      = f.error_message_on :title
-      %small.character_limit(data-limit="#{Post::MAX_TITLE_CHARS}")
-    %dd= f.text_field :title, placeholder: 'Enter title...'
-    %dt
-      = f.label :body
-      = f.error_message_on :body
-      %small.word_limit(data-limit="#{Post::MAX_WORDS}")
-    %dd
+= form_for @post, data: {action: "input->post-preview#renderMarkdown"} do |f|
+  %dl{data: {controller: "character-limit"}}
+    %dt{class: "flex items-center justify-between"}
+      %div
+        = f.label :title, nil, class: "font-bold"
+        .text-red
+          = f.error_message_on :title
+      %small{class: "font-bold character_limit", data: {"character-limit-target": "characterLimitMessage", limit: "#{Post::MAX_TITLE_CHARS}"}}
+        = pluralize(Post::MAX_TITLE_CHARS-f.object.title.to_s.size, "character") + " available"
+
+    %dd.mb-4= f.text_field :title, placeholder: 'Enter title...', class: "w-full border border-light focus:outline-none focus:ring-1 focus:ring-blue", data: {action: "input->character-limit#updateCharactersAvailable"}
+    %dt.flex.items-center.justify-between
+      %div
+        = f.label :body, nil, class: "font-bold"
+        .text-red
+          = f.error_message_on :body
+      %small{class: "font-bold word_limit", data: {"character-limit-target": "wordLimitMessage", limit: "#{Post::MAX_WORDS}"}}
+        = pluralize(f.object.words_remaining, "words") + " available"
+    %dd.mb-4
       #editor
-      = f.text_area :body, placeholder: 'Enter body...', class: 'autosize'
+      = f.text_area :body, placeholder: 'Enter body...', class: 'autosize w-full border border-light focus:outline-none focus:ring-1 focus:ring-blue', data: {action: "input->character-limit#updateWordsAvailable"}
 
     %dt
-      = f.label :channel_id
-      = f.error_message_on :channel_id
-    %dd= f.collection_select :channel_id, sorted_channels, :id, :name, include_blank: ""
+      = f.label :channel_id, nil, class: "font-bold"
+      .text-red
+        = f.error_message_on :channel_id
+    %dd.mb-4= f.collection_select :channel_id, sorted_channels, :id, :name, {include_blank: "", multiple: true}, {class: "border border-light focus:outline-none focus:ring-1 focus:ring-blue"}
     - if @post.publishable?
       %label.checkbox
-        = check_box_tag :published, "true", false
-        = label_tag :published, 'Publish this post'
-  %fieldset.actions
-    = f.submit 'Submit'
-    = link_to 'cancel', root_path
+        = check_box_tag :published, "true", false, class: "border border-light rounded focus:outline-none focus:ring-2 focus:ring-blue"
+        = label_tag :published, 'Publish this post?', class: "cursor-pointer font-bold"
+  %fieldset.actions.mt-4
+    = f.submit 'Submit', class: "uppercase text-white bg-navy px-6 py-2 cursor-pointer hover:bg-red font-['Raleway'] tracking-widest"
+    = link_to 'cancel', root_path, class: "text-red px-6 py-2 hover:text-navy"
 
 %script{src: '/assets/javascripts/ace-builds/ace.js'}
 

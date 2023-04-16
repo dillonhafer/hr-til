@@ -3,7 +3,7 @@ class DevelopersController < ApplicationController
 
   def update
     if developer.update(developer_params)
-      redirect_to root_path, notice: 'Developer updated'
+      redirect_to root_path, notice: "Developer updated"
     else
       render :edit
     end
@@ -17,10 +17,10 @@ class DevelopersController < ApplicationController
 
   def developer
     @developer ||= if params[:action] == "show"
-                   Developer.find_by_username!(params[:id])
-                 else
-                   current_developer
-                 end
+      Developer.find_by_username!(params[:id])
+    else
+      current_developer
+    end
   end
 
   def developer_params

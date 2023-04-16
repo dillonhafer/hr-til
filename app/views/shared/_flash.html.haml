@@ -1,4 +1,4 @@
-#flash
+%div{id: "flash"}
   - if flash.present?
     - flash.to_h.slice('notice', 'alert').each do |key, message|
-      %p{class: key}= message
+      %p{class: "fixed z-50 top-5 right-5 drop-shadow-md bg-white/90 text-center p-6 text-blue #{key}"}= message

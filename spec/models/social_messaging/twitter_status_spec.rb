@@ -1,22 +1,21 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe SocialMessaging::TwitterStatus do
-  let(:developer) { FactoryGirl.create(:developer, username: 'cooldeveloper', twitter_handle: 'handle') }
-  let(:channel) { FactoryGirl.create(:channel, name: 'dreamwave', twitter_hashtag: 'yodreamhashtag') }
+  let(:developer) { FactoryBot.create(:developer, username: "cooldeveloper", twitter_handle: "handle") }
+  let(:channel) { FactoryBot.create(:channel, name: "dreamwave", twitter_hashtag: "yodreamhashtag") }
 
   let(:post) do
-    FactoryGirl.build(:post,
-     title: 'Cool post',
-     slug: '1234',
-     developer: developer,
-     channel: channel
-    )
+    FactoryBot.build(:post,
+      title: "Cool post",
+      slug: "1234",
+      developer: developer,
+      channel: channel)
   end
 
   let(:twitter_status) { described_class.new(post) }
 
-  describe '#status' do
-    it 'returns a Twitter status' do
+  describe "#status" do
+    it "returns a Twitter status" do
       expected = "Cool post http://www.example.com/posts/1234-cool-post via @handle #til #yodreamhashtag"
       actual = twitter_status.send(:status)
 
