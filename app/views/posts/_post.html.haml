@@ -3,13 +3,12 @@
     .post__content.copy{class: "p-4 md:p-14"}
       %h1{class: "text-2xl font-semibold"}= link_to post.title, post
       =  markdown_render post.body
-      %footer{class: "font-['Lora'] italic"}
+      %footer{class: "primary-typeface italic"}
         - if content_for?(:social)
           %p{class: "post__social text-red"}= content_for :social
-        %p.text-right
-          = link_to post.developer_username, post.developer
-          %br
-          = link_to post.display_date.strftime("%B %-e, %Y"), post, class: "post__permalink font-['Lora']"
+        %p.text-right.pt-8
+          = link_to post.developer_username, post.developer,class: "block hover:underline"
+          = link_to post.display_date.strftime("%B %-e, %Y"), post, class: "post__permalink font-['Lora'] text-xs hover:underline"
           - unless post.published?
             (draft)
     %aside{class: "p-1"}

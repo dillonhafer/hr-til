@@ -31,7 +31,7 @@ module PostHelper
     content_tag(:a,
       "Tweet",
       href: "http://twitter.com/share",
-      class: "twitter-share-button",
+      class: "twitter-share-button text-red",
       "data-text": "Today I learned: #{title}",
       "data-via": "#{handle}",
       "data-hashtags": "#{channel.twitter_hashtag}",

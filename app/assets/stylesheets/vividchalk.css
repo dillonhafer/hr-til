@@ -9,7 +9,7 @@
   overflow: auto;
   background: var(--dark);
 }
-.copy p a {
+.copy p a, .copy footer a.text-red {
   color: #ae1f23;
 }
 .copy footer a {
