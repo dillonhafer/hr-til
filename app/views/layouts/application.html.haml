@@ -26,16 +26,20 @@
 
     %nav{class: "site_nav fixed bottom-0 left-0 z-30 right-0 md:right-[unset]"}
       %ul{class: "flex flex-row justify-between bg-white/90 md:bg-transparent md:flex-col"}
-        %li{class: "site_nav__searchdata relative", data: {controller: "view-toggle", "view-toggle-view-class": "hidden"}}
-          = link_to icon("search", "Search", "icon icon-search w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), "#", class: "site_nav__link cursor-pointer block p-3", data: {action: "click->view-toggle#toggle"}
-          %div{class: "site_nav__toggle absolute top-0 left-full hidden", data: {"view-toggle-target": "view"}}>
+        %li{class: "site_nav__searchdata relative"}
+          %label{for: :search_form, class: "site_nav__link cursor-pointer block p-3"}
+            = icon("search", "Search", "icon icon-search w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100")
+          %input{id: :search_form, class: "peer hidden", type: :checkbox}
+          %div{class: "site_nav__toggle absolute top-0 left-full hidden peer-checked:block"}>
             = form_tag root_path, method: 'get', class: "flex bg-white drop-shadow-md" do
               = search_field_tag :q, params[:q], class: "border-0 focus:outline-none focus:ring-0"
               = button_tag 'Search', name: nil, class: "uppercase text-white bg-navy px-6 py-2 cursor-pointer hover:bg-red font-['Raleway'] tracking-widest"
 
-        %li{class: "site_nav__about relative primary-typeface", data: {controller: "view-toggle", "view-toggle-view-class": "hidden"}}
-          = link_to icon("help", "About TIL", "icon icon-help w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), "#", data: {action: "click->view-toggle#toggle"}, class: "site_nav__link cursor-pointer block p-3"
-          %div{class: "site_nav__toggle absolute bottom-0 left-full hidden", data: {"view-toggle-target": "view"}}
+        %li{class: "site_nav__about relative primary-typeface"}
+          %label{for: :about, class: "site_nav__link cursor-pointer block p-3"}
+            = icon("help", "About TIL", "icon icon-help w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100")
+          %input{id: :about, class: "peer hidden", type: :checkbox}
+          %div{class: "hidden peer-checked:block site_nav__toggle absolute bottom-0 left-full"}
             .bg-white.drop-shadow-md.p-6.w-96.italic.font-light.text-sm
               .red-links.text-sm
                 :markdown
