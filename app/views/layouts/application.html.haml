@@ -56,7 +56,4 @@
           = link_to icon("surprise", "Surprise Me", "icon icon-stats w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), random_path, class: "cursor-pointer block p-3 text-black"
 
         %li.site_nav__statistics
-          - if Rails.env.production?
-            = button_to(icon("signin", "Sign In", "icon icon-stats w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), google_oauth2_path, class: "site_nav__link cursor-pointer block p-3 text-black", data: {turbo: false}) unless current_developer
-          - else
-            = button_to(icon("signin", "Sign In", "icon icon-stats w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), "/auth/developer?token=#{form_authenticity_token}", class: "site_nav__link cursor-pointer block p-3 text-black", data: {turbo: false}) unless current_developer
+          = button_to(icon("signin", "Sign In", "icon icon-stats w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), Rails.env.production? ? google_oauth2_path : "/auth/developer?token=#{form_authenticity_token}", class: "site_nav__link cursor-pointer block p-3 text-black", data: {turbo: false}) unless current_developer
