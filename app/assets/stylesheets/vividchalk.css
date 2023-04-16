@@ -1,3 +1,18 @@
+.post__content {
+  overflow: auto;
+}
+.post__content a {
+  word-break: break-all;
+}
+
+.red-links a {
+  color: #ae1f23;
+}
+
+.copy h1, .copy h2, .copy h3, .copy p, .copy ul, .copy ol {
+  margin: 0 0 1.2em;
+}
+
 .copy pre code {
   color: #fff;
   display: block;

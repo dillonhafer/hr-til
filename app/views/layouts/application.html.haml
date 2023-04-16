@@ -27,14 +27,14 @@
     %nav{class: "site_nav fixed bottom-0 left-0 z-30 right-0 md:right-[unset]"}
       %ul{class: "flex flex-row justify-between bg-white/90 md:bg-transparent md:flex-col"}
         %li{class: "site_nav__searchdata relative", data: {controller: "view-toggle", "view-toggle-view-class": "hidden"}}
-          = link_to icon("search", "Search", "icon icon-search icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), "#", class: "site_nav__link cursor-pointer block p-3", data: {action: "click->view-toggle#toggle"}
+          = link_to icon("search", "Search", "icon icon-search w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), "#", class: "site_nav__link cursor-pointer block p-3", data: {action: "click->view-toggle#toggle"}
           %div{class: "site_nav__toggle absolute top-0 left-full hidden", data: {"view-toggle-target": "view"}}>
             = form_tag root_path, method: 'get', class: "flex bg-white drop-shadow-md" do
               = search_field_tag :q, params[:q], class: "border-0 focus:outline-none focus:ring-0"
               = button_tag 'Search', name: nil, class: "uppercase text-white bg-navy px-6 py-2 cursor-pointer hover:bg-red font-['Raleway'] tracking-widest"
 
         %li{class: "site_nav__about relative primary-typeface", data: {controller: "view-toggle", "view-toggle-view-class": "hidden"}}
-          = link_to icon("help", "About TIL", "icon icon-help icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), "#", data: {action: "click->view-toggle#toggle"}, class: "site_nav__link cursor-pointer block p-3"
+          = link_to icon("help", "About TIL", "icon icon-help w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), "#", data: {action: "click->view-toggle#toggle"}, class: "site_nav__link cursor-pointer block p-3"
           %div{class: "site_nav__toggle absolute bottom-0 left-full hidden", data: {"view-toggle-target": "view"}}
             .bg-white.drop-shadow-md.p-6.w-96.italic.font-light.text-sm
               .red-links.text-sm
@@ -50,10 +50,10 @@
                 %li.flex-1.gap-1= link_to icon("github", "", "w-5 h-5") + "/hashrocket/hr-til", "https://github.com/hashrocket/hr-til", class: "social_github flex items-center hover:text-red"
 
         %li
-          = link_to icon("stats", "Statistics", "icon icon-stats icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), statistics_path, class: "site_nav__link cursor-pointer block p-3 text-black"
+          = link_to icon("stats", "Statistics", "icon icon-stats w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), statistics_path, class: "site_nav__link cursor-pointer block p-3 text-black"
 
         %li
-          = link_to icon("surprise", "Surprise Me", "icon icon-stats icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), random_path, class: "cursor-pointer block p-3 text-black"
+          = link_to icon("surprise", "Surprise Me", "icon icon-stats w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), random_path, class: "cursor-pointer block p-3 text-black"
 
         %li.site_nav__statistics
-          = link_to(icon("signin", "Sign In", "icon icon-stats icon-small text-navy transition ease-in-out opacity-70 hover:opacity-100"), admin_path, class: "site_nav__link cursor-pointer block p-3 text-black") unless current_developer
+          = link_to(icon("signin", "Sign In", "icon icon-stats w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), admin_path, class: "site_nav__link cursor-pointer block p-3 text-black") unless current_developer
