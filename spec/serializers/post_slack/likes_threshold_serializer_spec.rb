@@ -62,7 +62,7 @@ RSpec.describe PostSlack::LikesThresholdSerializer, type: :serializer do
     end
 
     it "is serialized with escaped quotes" do
-      developer = FactoryBot.build(:developer, username: "tpope")
+      FactoryBot.build(:developer, username: "tpope")
       post = FactoryBot.create(:post, title: 'Let me prepare you a "quote"')
 
       serialized = serialize_post(post)

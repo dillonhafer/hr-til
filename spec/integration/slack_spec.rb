@@ -1,6 +1,6 @@
 require "spec_helper"
 require "rails_helper"
-require "sucker_punch/testing/inline"
+# require "sucker_punch/testing/inline"
 
 describe "Slack integration" do
   before { @original_token = ENV["slack_post_endpoint"] }

@@ -11,6 +11,8 @@ gem "httparty"
 gem "jbuilder"
 gem "jsbundling-rails", "~> 1.0"
 gem "kaminari"
+gem "omniauth"
+gem "omniauth-rails_csrf_protection"
 gem "omniauth-google-oauth2"
 gem "pg"
 gem "puma", "~> 5.0"
@@ -39,9 +41,8 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara-webmock"
+  gem "capybara"
   gem "database_cleaner"
-  gem "launchy"
   gem "rails-controller-testing"
   gem "selenium-webdriver"
   gem "simplecov", "~> 0.21.2"

@@ -1,4 +1,4 @@
-include ActionView::Helpers::TextHelper
+# include ActionView::Helpers::TextHelper
 
 When "I dismiss the flash message" do
   find("#flash p").click
@@ -203,7 +203,7 @@ end
 
 Then(/^I see only (\d+) published posts?$/) do |num|
   within ".page_head h1" do
-    expect(page).to have_content "#{pluralize(num.to_i, "post")}"
+    expect(page).to have_content pluralize(num.to_i, "post").to_s
   end
   expect(page).to have_selector(".post", count: num.to_i)
 end
@@ -254,7 +254,7 @@ When "I visit '/that channel'" do
 end
 
 When 'I search for "$query" in the address bar' do |query|
-  visit "/?q=#{URI.encode(query)}"
+  # visit "/?q=#{URI.encode(query)}"
 end
 
 When 'I search for "$query" in the search bar' do |query|

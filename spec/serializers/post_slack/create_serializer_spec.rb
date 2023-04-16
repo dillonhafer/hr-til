@@ -96,7 +96,7 @@ RSpec.describe PostSlack::CreateSerializer, type: :serializer do
     end
 
     it "escapes quotes" do
-      developer = FactoryBot.build(:developer, username: "tpope")
+      FactoryBot.build(:developer, username: "tpope")
       post = FactoryBot.create(:post, title: 'Let me prepare you a "quote"')
 
       serialized = serialize_post(post)

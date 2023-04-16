@@ -33,7 +33,7 @@ describe StatisticsController do
         case struct.label
         when yesterday.strftime("%a, %b %-e")
           expect(struct.count).to eq 3
-        when yesterday.strftime("%a, %b %-e")
+        when today.strftime("%a, %b %-e")
           expect(struct.count).to eq 5
         end
       end

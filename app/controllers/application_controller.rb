@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   authem_for :developer
 
-  if credentials = ENV["basic_auth_credentials"]
+  if (credentials = ENV["basic_auth_credentials"])
     username, password = credentials.split(":", 2)
     http_basic_authenticate_with name: username, password: password
   end
