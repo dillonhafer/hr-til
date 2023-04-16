@@ -39,6 +39,6 @@ module PostHelper
   end
 
   def display_more_info?(post, dynamic_path)
-    post.published? && lookup_context.find_all(dynamic_path, [], true).any?
+    false
   end
 end
