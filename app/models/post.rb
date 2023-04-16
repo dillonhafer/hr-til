@@ -113,7 +113,7 @@ class Post < ApplicationRecord
   end
 
   def publishing?
-    published_at? && published_at_changed?
+    published_at? && published_at_previously_changed?
   end
 
   def body_size
