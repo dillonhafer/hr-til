@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+li.bar:nth-child(even) .activity_chart_bar {
+  background-color: #082736;
+}
+li.bar:nth-child(even) .activity_chart_bar {
+  background-color: #00a2e1;
+}
+
 .primary-typeface {
   font-family: "Lora", "Helvetica Neue", Helvetica, sans-serif;
 }
