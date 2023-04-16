@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   end
   post "/auth/google_oauth2", as: "google_oauth2"
   get "/auth/google_oauth2/callback", to: "sessions#create"
-  get "account/signout", to: "sessions#destroy"
+  delete "account/signout", to: "sessions#destroy"
 
   # Channels
   resources :channels, path: "/", only: :show

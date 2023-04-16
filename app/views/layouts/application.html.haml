@@ -7,7 +7,7 @@
       %nav{class: "admin_panel fixed top-0 left-0 right-0 text-center z-40"}
         %ul{class: "inline-flex bg-white/90 font-normal text-xs font-['Raleway'] drop-shadow-md"}
           %li= link_to current_developer.username, current_developer, class: "text-blue py-2 px-4 block hover:text-red"
-          %li= link_to "Sign Out", account_signout_path, class: "text-blue py-2 px-4 block hover:text-red"
+          %li= button_to "Sign Out", account_signout_path, method: :delete, class: "text-blue py-2 px-4 block hover:text-red"
           %li= link_to "Create Post", new_post_path, class: "text-blue py-2 px-4 block hover:text-red"
           %li= link_to "Drafts", drafts_path, class: "text-blue py-2 px-4 block hover:text-red"
           %li= link_to "Profile", edit_profile_path, class: "text-blue py-2 px-4 block hover:text-red"
