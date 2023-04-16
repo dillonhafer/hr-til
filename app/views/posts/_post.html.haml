@@ -14,22 +14,22 @@
             (draft)
     %aside{class: "p-1"}
       %ul{class: "flex w-full uppercase gap-1 font-['Raleway'] font-medium text-sm"}
-        %li{class: "flex-auto text-green border-t-2 border-t-green"}
+        %li{class: "flex-auto text-green border-t-2 border-t-green hover:bg-green/10"}
           = link_to "##{post.channel_name}", post.channel, class: "post__tag-link block text-center py-2 px-4"
-        %li{class: "flex-auto text-blue border-t-2 border-t-blue"}
+        %li{class: "flex-auto text-blue border-t-2 border-t-blue hover:bg-blue/10"}
           = link_to post, class: 'post__permalink block text-center py-2 px-4' do
             permalink
-        %li{class: "flex-auto text-purple border-t-2 border-t-purple"}
+        %li{class: "flex-auto text-purple border-t-2 border-t-purple hover:bg-purple/10"}
           = link_to [post, format: 'md'], class: "post__raw-link block text-center py-2 px-4", target: "_blank" do
             raw
         - if editable?(post)
-          %li{class: "flex-auto text-blue border-t-2 border-t-blue"}
+          %li{class: "flex-auto text-blue border-t-2 border-t-blue hover:bg-blue/10"}
             = link_to "edit", [:edit, post], class: "post__edit-link block text-center py-2 px-4"
         - unless post.draft?
-          %li{class: "flex-auto border-t-2 border-t-pink"}
-            = button_to [post, :like], class: "js-like-action post__like-link block text-pink text-center py-2 px-4", id: post.slug do
+          %li{class: "flex-auto border-t-2 border-t-pink cursor-pointer hover:bg-red/10"}
+            = button_to [post, (cookies.encrypted[post.id.to_s] == true ? :unlike : :like), id: post.id], form: {class: "js-like-action post__like-link flex items-center justify-center text-pink text-center"}, class: "py-2 px-4 w-full", id: post.slug do
               %span{class: "post__like-label flex items-center justify-center gap-1 text-navy"}
-                = icon("heart", "Statistics", "post__like-label h-5 w-5 text-blue animated animate-pulse")
+                = icon("heart", "Statistics", "post__like-label h-5 w-5 text-blue animated #{(cookies.encrypted[post.id.to_s] == true ? "text-red" : "animate-pulse opacity-90")}")
                 %span.post__like-count.text-pink= post.likes
 
 = content_for :post_nav

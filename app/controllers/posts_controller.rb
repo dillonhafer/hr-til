@@ -66,7 +66,9 @@ class PostsController < ApplicationController
   helper_method :sorted_channels
 
   def like
-    post = Post.find_by_slug(params[:slug])
+    post = Post.find(params[:id])
+    cookies.encrypted[post.id.to_s] = {value: true, expires_at: 1.year.from_now}
+
     respond_to do |format|
       if post.increment_likes
         format.json { render json: {likes: post.likes} }
@@ -76,7 +78,10 @@ class PostsController < ApplicationController
   end
 
   def unlike
-    post = Post.find_by_slug(params[:slug])
+    post = Post.find(params[:id])
+    return if cookies.encrypted[post.id.to_s] != true
+
+    cookies.delete(post.id.to_s)
     respond_to do |format|
       if post.decrement_likes
         format.json { render json: {likes: post.likes} }
