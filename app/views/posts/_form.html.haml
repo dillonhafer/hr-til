@@ -32,9 +32,3 @@
   %fieldset.actions.mt-4
     = f.submit 'Submit', class: "uppercase text-white bg-navy px-6 py-2 cursor-pointer hover:bg-red font-['Raleway'] tracking-widest"
     = link_to 'cancel', root_path, class: "text-red px-6 py-2 hover:text-navy"
-
-%script{src: '/assets/javascripts/ace-builds/ace.js'}
-
-:javascript
-  var TIL = TIL || {}
-  TIL.editor = "#{current_developer.editor}";

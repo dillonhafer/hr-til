@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   resources :statistics, only: :index
 
   # Sessions
+  if Rails.env.development?
+    get "/admin", to: "sessions#dev_create"
+  end
   get "/admin" => redirect("/auth/google_oauth2")
   get "/auth/google_oauth2", as: "google_oauth2"
   get "/auth/google_oauth2/callback", to: "sessions#create"

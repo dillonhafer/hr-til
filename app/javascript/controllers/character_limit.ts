@@ -14,34 +14,34 @@ export default class extends Controller {
 	declare characterLimitMessageTarget: HTMLElement;
 	declare wordLimitMessageTarget: HTMLElement;
 
-	updateWordsAvailable = (e: Event) => {
-		const input = e.currentTarget as HTMLInputElement;
-		const limit = Number(this.wordLimitMessageTarget.dataset.limit);
-		const available =
-			limit - input.value.split(/\s+|\n/).filter(Boolean).length;
+	#updateWords = (el: HTMLElement, word: string, inputLength: number) => {
+		const limit = Number(el.dataset.limit);
+		const available = limit - inputLength;
 
-		this.wordLimitMessageTarget.innerText =
-			pluralize(available, "word", "words") + " available";
+		el.innerText = pluralize(available, word, word + "s") + " available";
 
 		if (available < 0) {
-			this.wordLimitMessageTarget.classList.add("text-red");
+			el.classList.add("text-red");
 		} else {
-			this.wordLimitMessageTarget.classList.remove("text-red");
+			el.classList.remove("text-red");
 		}
+	};
+
+	updateWordsAvailable = (e: Event) => {
+		const input = e.currentTarget as HTMLInputElement;
+		this.#updateWords(
+			this.wordLimitMessageTarget,
+			"word",
+			input.value.split(/\s+|\n/).filter(Boolean).length
+		);
 	};
 
 	updateCharactersAvailable = (e: Event) => {
 		const input = e.currentTarget as HTMLInputElement;
-		const limit = Number(this.characterLimitMessageTarget.dataset.limit);
-		const available = limit - input.value.length;
-
-		this.characterLimitMessageTarget.innerText =
-			pluralize(available, "character", "characters") + " available";
-
-		if (available < 0) {
-			this.characterLimitMessageTarget.classList.add("text-red");
-		} else {
-			this.characterLimitMessageTarget.classList.remove("text-red");
-		}
+		this.#updateWords(
+			this.characterLimitMessageTarget,
+			"character",
+			input.value.length
+		);
 	};
 }
