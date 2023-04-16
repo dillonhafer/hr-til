@@ -19,6 +19,7 @@ describe Developer do
 
   context "validates email domains" do
     it "and allows whitelisted email addresses" do
+      allow(Developer).to receive(:permitted_emails).and_return("johnsmith@whitelisted-guest.com")
       developer.email = "johnsmith@whitelisted-guest.com"
       expect(developer).to be_valid
     end
