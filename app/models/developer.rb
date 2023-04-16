@@ -1,11 +1,15 @@
 class Developer < ApplicationRecord
   has_many :posts
-  validates :email, presence: true, format: {with: proc { /\A(.+@(#{ENV['permitted_domains']})|(#{ENV['permitted_emails']}))\z/ }}
+  validates :email, presence: true, format: {with: proc { /\A(.+@(#{ENV['permitted_domains']})|(#{permitted_emails}))\z/ }}
   validates :username, presence: true, uniqueness: true, format: {with: /\A[A-Za-z0-9]+\Z/}
   validates :twitter_handle, length: {maximum: 15}, format: {with: /\A(?=.*[a-z])[a-z_\d]+\Z/i}, allow_blank: true
 
   def self.editor_options
     ["Text Field"].freeze
+  end
+
+  def self.permitted_emails
+    ENV["permitted_emails"]
   end
 
   validates :editor, inclusion: {
