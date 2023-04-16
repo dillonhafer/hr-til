@@ -1,9 +1,4 @@
 class SessionsController < ApplicationController
-  def dev_create
-    sign_in Developer.first
-    redirect_to root_path, notice: "Signed in"
-  end
-
   def create
     oauth_info = OAuthInfo.new(request.env["omniauth.auth"])
     developer = Developer.find_or_create_by!(email: oauth_info.email) do |new_developer|
