@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
-  before_action :require_developer, except: [:index, :show, :like, :unlike]
+  before_action :require_developer, except: [:index, :show, :like, :unlike, :random]
   before_action :authorize_developer, only: [:edit, :update]
 
   helper_method :post
@@ -32,6 +32,11 @@ class PostsController < ApplicationController
       format.json { render json: @posts }
       format.atom
     end
+  end
+
+  def random
+    @post = Post.order("random()").first
+    render template: "posts/show"
   end
 
   def show

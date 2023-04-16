@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     post :preview, on: :collection
     get "/:titled_slug.md", to: "posts#show", as: "post_text"
   end
+
+  get :random, to: "posts#random", as: :random
   get "/posts_drafts", to: "posts#drafts", as: :drafts
 
   # Stats
