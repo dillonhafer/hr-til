@@ -6,6 +6,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     access_type: "online"
 end
 
+OmniAuth.config.logger = Rails.logger
+
 if !Rails.env.production?
   module OmniAuth
     module Strategies
