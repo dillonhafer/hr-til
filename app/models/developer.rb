@@ -5,7 +5,7 @@ class Developer < ApplicationRecord
   validates :twitter_handle, length: {maximum: 15}, format: {with: /\A(?=.*[a-z])[a-z_\d]+\Z/i}, allow_blank: true
 
   def self.editor_options
-    ["Text Field", "Ace (w/ Vim)", "Ace"].freeze
+    ["Text Field"].freeze
   end
 
   validates :editor, inclusion: {

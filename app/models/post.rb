@@ -81,37 +81,6 @@ class Post < ApplicationRecord
     body.to_s.split(" ").size
   end
 
-  private
-
-  def likes_threshold?
-    max_likes % 10 == 0 && max_likes_changed?
-  end
-
-  def publishing?
-    published_at? && published_at_changed?
-  end
-
-  def body_size
-    return if word_count <= MAX_WORDS
-
-    words_remaining_abs = words_remaining.abs
-    errors.add :body, "of this post is too long. It is " \
-      "#{words_remaining_abs} #{"word".pluralize(words_remaining_abs)} " \
-      "over the limit of 200 words"
-  end
-
-  def generate_slug
-    self[:slug] ||= SecureRandom.hex(5)
-  end
-
-  def slugified_title
-    title.downcase.gsub(/[^A-Za-z0-9\s-]/, "").strip.gsub(/(\s|-)+/, "-")
-  end
-
-  def notify_slack(event)
-    SlackNotifier.new.perform(self, event)
-  end
-
   def self.search(query)
     if query.present?
       haystack = {
@@ -135,5 +104,36 @@ class Post < ApplicationRecord
     else
       order created_at: :desc
     end
+  end
+
+  private
+
+  def likes_threshold?
+    max_likes % 10 == 0 && max_likes_changed?
+  end
+
+  def publishing?
+    published_at? && published_at_changed?
+  end
+
+  def body_size
+    return if word_count <= MAX_WORDS
+
+    words_remaining_abs = words_remaining.abs
+    errors.add :body, "of this post is too long. It is " \
+      "#{words_remaining_abs} #{"word".pluralize(words_remaining_abs)} " \
+      "over the limit of #{MAX_WORDS} words"
+  end
+
+  def generate_slug
+    self[:slug] ||= SecureRandom.hex(5)
+  end
+
+  def slugified_title
+    title.downcase.gsub(/[^A-Za-z0-9\s-]/, "").strip.gsub(/(\s|-)+/, "-")
+  end
+
+  def notify_slack(event)
+    SlackNotifier.new.perform(self, event)
   end
 end
