@@ -12,7 +12,7 @@
           %li(data-date="#{ppd.label}" data-amount="#{ppd.count}" class="#{if ppd.count == 1 then 'singular' end} relative flex-1 bar")
             %div{class: "peer hover:bg-white bottom-0 absolute left-0 right-0", style: "height: 100%"}
             %div{class: "peer hover:bg-black peer-hover:bg-black bg-blue activity_chart_bar bottom-0 absolute left-0 right-0", style: "height: #{(ppd.count.to_f/highest_count_last_30_days) * 100}%"}
-            %div{class: "absolute bottom-[100%] w-[10rem] text-sm hidden peer-hover:block mb-1 italic left-[-50%]"}
+            %div{class: "absolute bottom-[100%] w-[10rem] bg-white w-24 rounded text-sm hidden peer-hover:block mb-1 italic left-[-50%]"}
               = ppd.label
             %div{class: "absolute top-[100%] text-sm hidden peer-hover:block w-[10rem] mt-1 italic left-[-50%]"}
               = pluralize(ppd.count, "post")
