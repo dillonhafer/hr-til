@@ -12,7 +12,7 @@
           - unless post.published?
             (draft)
     %aside{class: "p-1"}
-      %ul{class: "flex w-full uppercase gap-1 font-['Raleway'] font-medium text-sm"}
+      %ul{class: "flex w-full flex-col md:flex-row uppercase gap-1 font-['Raleway'] font-medium text-sm"}
         %li{class: "flex-auto text-green border-t-2 border-t-green hover:bg-green/10"}
           = link_to "##{post.channel_name}", post.channel, class: "post__tag-link block text-center py-2 px-4"
         %li{class: "flex-auto text-blue border-t-2 border-t-blue hover:bg-blue/10"}

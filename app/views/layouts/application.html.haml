@@ -28,7 +28,7 @@
       %ul{class: "flex flex-row justify-between bg-white/90 md:bg-transparent md:flex-col"}
         %li{class: "site_nav__searchdata relative"}
           %label{for: :search_form, class: "site_nav__link cursor-pointer block p-3"}
-            = icon("search", "Search", "icon icon-search w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100")
+            = icon("search", "Search", "icon icon-search w-8 h-8 text-navy transition ease-in-out opacity-70 hover:opacity-100")
           %input{id: :search_form, class: "peer hidden", type: :checkbox}
           %div{class: "site_nav__toggle absolute top-0 left-full hidden peer-checked:block"}>
             = form_tag root_path, method: 'get', class: "flex bg-white drop-shadow-md" do
@@ -37,7 +37,7 @@
 
         %li{class: "site_nav__about relative primary-typeface"}
           %label{for: :about, class: "site_nav__link cursor-pointer block p-3"}
-            = icon("help", "About TIL", "icon icon-help w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100")
+            = icon("help", "About TIL", "icon icon-help w-8 h-8 text-navy transition ease-in-out opacity-70 hover:opacity-100")
           %input{id: :about, class: "peer hidden", type: :checkbox}
           %div{class: "hidden peer-checked:block site_nav__toggle absolute bottom-0 left-full"}
             .bg-white.drop-shadow-md.p-6.w-96.italic.font-light.text-sm
@@ -54,10 +54,10 @@
                 %li.flex-1.gap-1= link_to icon("github", "", "w-5 h-5") + "/hashrocket/hr-til", "https://github.com/hashrocket/hr-til", class: "social_github flex items-center hover:text-red"
 
         %li
-          = link_to icon("stats", "Statistics", "icon icon-stats w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), statistics_path, class: "site_nav__link cursor-pointer block p-3 text-black"
+          = link_to icon("stats", "Statistics", "icon icon-stats w-8 h-8 text-navy transition ease-in-out opacity-70 hover:opacity-100"), statistics_path, class: "site_nav__link cursor-pointer block p-3 text-black"
 
         %li
-          = link_to icon("surprise", "Surprise Me", "icon icon-stats w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), random_path, class: "cursor-pointer block p-3 text-black"
+          = link_to icon("surprise", "Surprise Me", "icon icon-stats w-8 h-8 text-navy transition ease-in-out opacity-70 hover:opacity-100"), random_path, class: "cursor-pointer block p-3 text-black"
 
         %li.site_nav__statistics
-          = button_to(icon("signin", "Sign In", "icon icon-stats w-7 h-7 text-navy transition ease-in-out opacity-70 hover:opacity-100"), Rails.env.production? ? google_oauth2_path : "/auth/developer?token=#{form_authenticity_token}", class: "site_nav__link cursor-pointer block p-3 text-black", data: {turbo: false}) unless current_developer
+          = button_to(icon("signin", "Sign In", "icon icon-stats w-8 h-8 text-navy transition ease-in-out opacity-70 hover:opacity-100"), Rails.env.production? ? google_oauth2_path : "/auth/developer?token=#{form_authenticity_token}", class: "site_nav__link cursor-pointer block p-3 text-black", data: {turbo: false}) unless current_developer
