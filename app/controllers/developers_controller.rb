@@ -5,7 +5,7 @@ class DevelopersController < ApplicationController
     if developer.update(developer_params)
       redirect_to root_path, notice: "Developer updated"
     else
-      render :edit
+      render :edit, status: 422
     end
   end
 
