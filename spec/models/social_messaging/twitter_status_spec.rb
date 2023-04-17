@@ -22,4 +22,28 @@ describe SocialMessaging::TwitterStatus do
       expect(actual).to eq expected
     end
   end
+
+  describe "#post_to_twitter" do
+    context "when update twitter is true" do
+      before do
+        allow(TwitterClient).to receive(:update)
+        allow(twitter_status).to receive(:update_twitter_with_post).and_return("true")
+      end
+
+      it "updates the post" do
+        post.save
+
+        expect {
+          twitter_status.post_to_twitter
+        }.to change {
+          post.reload.tweeted
+        }.from(false).to(true)
+      end
+
+      it "calls Twitter update" do
+        twitter_status.post_to_twitter
+        expect(TwitterClient).to have_received(:update)
+      end
+    end
+  end
 end

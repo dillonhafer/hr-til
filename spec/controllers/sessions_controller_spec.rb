@@ -2,6 +2,21 @@ require "rails_helper"
 describe SessionsController do
   describe "#create" do
     context "with oauth" do
+      context "when email is invalid" do
+        it "does" do
+          request.env["omniauth.auth"] = {
+            "info" => {
+              "name" => "jake",
+              "email" => "jake@example.org"
+            }
+          }
+
+          post :create
+          expect(response).to redirect_to root_path
+          expect(flash[:notice]).to eq("Validation failed: ")
+        end
+      end
+
       it "signs in existing developer by email" do
         developer = FactoryBot.create :developer, email: "jake@example.com"
         request.env["omniauth.auth"] = {

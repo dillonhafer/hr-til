@@ -2,18 +2,14 @@
   %dl{data: {controller: "character-limit"}}
     %dt{class: "flex items-center justify-between"}
       %div
-        = f.label :title, nil, class: "font-bold"
-        .text-red
-          = f.error_message_on :title
+        = f.label :title, "Title "+f.object.errors[:title].first.to_s, class: "font-bold #{"text-red" if f.object.errors[:title].present?}"
       %small{class: "font-bold character_limit", data: {"character-limit-target": "characterLimitMessage", limit: "#{Post::MAX_TITLE_CHARS}"}}
         = pluralize(Post::MAX_TITLE_CHARS-f.object.title.to_s.size, "character") + " available"
 
     %dd.mb-4= f.text_field :title, placeholder: 'Enter title...', class: "w-full border border-light focus:outline-none focus:ring-1 focus:ring-blue", data: {action: "input->character-limit#updateCharactersAvailable"}
     %dt.flex.items-center.justify-between
       %div
-        = f.label :body, nil, class: "font-bold"
-        .text-red
-          = f.error_message_on :body
+        = f.label :body, "Body "+f.object.errors[:body].first.to_s, class: "font-bold #{"text-red" if f.object.errors[:body].present?}"
       %small{class: "font-bold word_limit", data: {"character-limit-target": "wordLimitMessage", limit: "#{Post::MAX_WORDS}"}}
         = pluralize(f.object.words_remaining, "words") + " available"
     %dd.mb-4
@@ -21,9 +17,7 @@
       = f.text_area :body, placeholder: 'Enter body...', class: 'autosize w-full border border-light focus:outline-none focus:ring-1 focus:ring-blue', data: {action: "input->character-limit#updateWordsAvailable"}
 
     %dt
-      = f.label :channel_id, nil, class: "font-bold"
-      .text-red
-        = f.error_message_on :channel_id
+      = f.label :channel_id, "Channel "+f.object.errors[:channel_id].first.to_s, class: "font-bold #{"text-red" if f.object.errors[:channel_id].present?}"
     %dd.mb-4= f.collection_select :channel_id, sorted_channels, :id, :name, {include_blank: "", multiple: true}, {class: "border border-light focus:outline-none focus:ring-1 focus:ring-blue"}
     - if @post.publishable?
       %label.checkbox

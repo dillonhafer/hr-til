@@ -8,7 +8,7 @@ module SocialMessaging
 
     def post_to_twitter
       return if post.draft? || post.tweeted
-      if ENV["update_twitter_with_post"] == "true"
+      if update_twitter_with_post == "true"
         TwitterClient.update(status)
         post.tweeted = true
         post.save
@@ -16,6 +16,10 @@ module SocialMessaging
     end
 
     private
+
+    def update_twitter_with_post
+      ENV["update_twitter_with_post"]
+    end
 
     def title
       post.title

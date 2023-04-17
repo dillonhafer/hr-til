@@ -31,4 +31,8 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include SessionHelper, type: :feature
   config.filter_rails_from_backtrace!
+
+  config.before(:each, type: :system, javascript: true) do
+    driven_by :selenium_chrome_headless
+  end
 end

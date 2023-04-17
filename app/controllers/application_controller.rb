@@ -1,17 +1,25 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_cache_header
+  before_action :authenticate_with_basic_auth
 
   authem_for :developer
-
-  if (credentials = ENV["basic_auth_credentials"])
-    username, password = credentials.split(":", 2)
-    http_basic_authenticate_with name: username, password: password
-  end
-
   helper_method :editable?
 
+  def self.basic_auth
+    ENV["basic_auth_credentials"]
+  end
+
   private
+
+  def authenticate_with_basic_auth
+    if (credentials = self.class.basic_auth)
+      username, password = credentials.split(":", 2)
+      authenticate_or_request_with_http_basic do |un, pw|
+        un == username && pw == password
+      end
+    end
+  end
 
   def editable?(post)
     current_developer && (current_developer == post.developer || current_developer.admin?)

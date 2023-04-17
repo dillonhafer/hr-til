@@ -3,17 +3,12 @@ class StatisticsController < ApplicationController
     :channels,
     :highest_count_last_30_days,
     :hot_posts,
-    :posts,
     :posts_per_day,
     :top_ten
 
   private
 
   CountStat = Struct.new(:label, :count)
-
-  def posts
-    Post.published
-  end
 
   def hot_posts
     hot_posts = ActiveRecord::Base.connection.execute("select id from hot_posts limit 10;")
