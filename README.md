@@ -1,6 +1,6 @@
 # HR-TIL
 
-![til](https://raw.githubusercontent.com/hashrocket/hr-til/master/app/assets/images/banner.png)
+![til](https://raw.githubusercontent.com/dillonhafer/hr-til/master/app/assets/images/banner.png)
 
 > TIL is an open-source project by the team at
 > [Hashrocket](https://hashrocket.com/) that catalogues the sharing &
@@ -17,7 +17,7 @@ code](https://github.com/hashrocket/tilex)), and the Rails application is no
 longer in production or actively maintained by Hashrocket. Thanks to all of our
 [contributors](https://github.com/hashrocket/hr-til/graphs/contributors)!
 
-This Rails application now in production and actively maintained by Dillon Hafer
+This Rails application is now in production and actively maintained by Dillon Hafer
 
 ### Install
 
@@ -27,12 +27,12 @@ If you are creating your own version of the site,
 Then, follow these setup steps:
 
 ```sh
-$ git clone https://github.com/hashrocket/hr-til
+$ git clone https://github.com/dillonhafer/hr-til
 $ cd hr-til
 $ bundle
 $ cp .env{.example,}
-$ rake db:create db:migrate db:seed
-$ rails s
+$ rails db:setup
+$ bin/dev
 ```
 
 In development, `db:seed` will load sample data for channels, developers, and
@@ -57,8 +57,6 @@ permitted_emails: "friend@whitelist.com"
 
 Ensure you have set the google client id and google client secret via Oauth instructions.
 
-Once set, visit '/admin' and log in with a permitted email address or domain.
-
 ### Testing
 
 Run all tests with:
@@ -67,25 +65,16 @@ Run all tests with:
 $ rake
 ```
 
-Or, run all the test in parallel with [flatware](https://github.com/briandunn/flatware):
-
-```
-$ flatware fan rake db:test:prepare
-$ flatware rspec && flatware cucumber
-```
-
 ### Dependencies
 
-- The gem `selenium-webdriver` depends on the Firefox browser.
-- The gems `flatware-rspec` and `flatware-cucumber` require ZeroMQ. Learn more
-  [here](https://github.com/briandunn/flatware).
+- The gem `selenium-webdriver` depends on the Firefox and/or Chrome browsers.
 
 ### Environmental Variables
 
 `basic_auth_credentials` both toggles and defines basic authentication:
 
 ```yml
-# config/application.yml
+# .env
 
 basic_auth_credentials: username:password
 ```
@@ -93,7 +82,7 @@ basic_auth_credentials: username:password
 `slack_post_endpoint` allows the app to post to [Slack](https://slack.com/):
 
 ```yml
-# config/application.yml
+# .env
 
 slack_post_endpoint: /services/some/hashes
 ```
@@ -120,6 +109,15 @@ We love seeing forks of Today I Learned in production! Please consult our
 
 TIL is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
+### Deploy on a DigitalOcean droplet
+
+```
+cp .env.example .env.production
+ansible-playbook -i til.dillonhafer.com, config/digital-ocean-ansible.yml
+mina setup
+mina deploy
+```
+
 ---
 
 ### About
@@ -130,12 +128,3 @@ TIL is supported by the team at [Hashrocket, a
 multidisciplinary design and development consultancy](https://hashrocket.com). If you'd like to [work with
 us](https://hashrocket.com/contact-us/hire-us) or [join our
 team](https://hashrocket.com/contact-us/jobs), don't hesitate to get in touch.
-
-### Deploy on a DigitalOcean droplet
-
-```
-cp .env.example .env.production
-ansible-playbook -i til.dillonhafer.com, config/digital-ocean-ansible.yml
-mina setup
-mina deploy
-```
