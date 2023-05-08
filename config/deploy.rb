@@ -16,10 +16,11 @@ set :shared_dirs, fetch(:shared_dirs, []).concat(%w[
   tmp/pids
   tmp/cache
   public/assets
-  public/masthead.png
 ])
 
-set :shared_files, fetch(:shared_files, []).concat(%w[])
+set :shared_files, fetch(:shared_files, []).concat(%w[
+  public/masthead.png
+])
 
 task :remote_environment do
   command "export $(cat /var/www/hr-til-production/shared/.env | xargs)"
