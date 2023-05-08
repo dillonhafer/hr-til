@@ -16,7 +16,7 @@
       %div{class: "inline-block relative"}
         %h1= link_to SITE_NAME, root_path, class: "text-navy text-3xl mt-12 md:mt-[unset] md:text-8xl block uppercase tracking-widest leading-none font-black font-['Raleway']"
         %h2{class: "flex justify-end flex-col md:flex-row mr-[1vw] gap-2"}
-          = link_to icon("hashrocket", "Hashrocket", "h-5 w-5 mr-1") + "A Hashrocket project", "https://hashrocket.com", class: "text-red text-right text-lg font-bold flex items-center py-1 font-['Raleway'] tracking-widest uppercase"
+          = link_to (ENV["organization_name"].present? ? "" : icon("hashrocket", ENV['organization_name'] || "Hashrocket", "h-5 w-5 mr-1")) + "A #{ENV["organization_name"] || "Hashrocket"} project", ENV["organization_url"] || "https://hashrocket.com", class: "text-red text-right text-lg font-bold flex items-center py-1 font-['Raleway'] tracking-widest uppercase"
           %span
             = link_to icon("twitter", "Twitter", "h-5 w-5 mr-1") + "Follow on Twitter", "https://twitter.com/#{ENV["default_twitter_handle"] || "hashrockettil"}", class: "text-twitter-color text-right text-lg font-bold flex items-center py-1 font-['Raleway'] tracking-widest uppercase"
 
