@@ -18,7 +18,7 @@
         %h2{class: "flex justify-end flex-col md:flex-row mr-[1vw] gap-2"}
           = link_to icon("hashrocket", "Hashrocket", "h-5 w-5 mr-1") + "A Hashrocket project", "https://hashrocket.com", class: "text-red text-right text-lg font-bold flex items-center py-1 font-['Raleway'] tracking-widest uppercase"
           %span
-            = link_to icon("twitter", "Twitter", "h-5 w-5 mr-1") + "Follow on Twitter", "https://twitter.com/hashrockettil", class: "text-twitter-color text-right text-lg font-bold flex items-center py-1 font-['Raleway'] tracking-widest uppercase"
+            = link_to icon("twitter", "Twitter", "h-5 w-5 mr-1") + "Follow on Twitter", "https://twitter.com/#{ENV["default_twitter_handle"] || "hashrockettil"}", class: "text-twitter-color text-right text-lg font-bold flex items-center py-1 font-['Raleway'] tracking-widest uppercase"
 
     = render 'shared/flash'
 
