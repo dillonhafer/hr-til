@@ -16,8 +16,11 @@ channels = [
   {name: "mobile", twitter_hashtag: "mobile"},
   {name: "rails", twitter_hashtag: "rails"},
   {name: "react", twitter_hashtag: "react"},
+  {name: "react-native", twitter_hashtag: "reactnative"},
   {name: "ruby", twitter_hashtag: "ruby"},
+  {name: "svelte", twitter_hashtag: "svelte"},
   {name: "sql", twitter_hashtag: "sql"},
+  {name: "swift", twitter_hashtag: "swift"},
   {name: "testing", twitter_hashtag: "testing"},
   {name: "vim", twitter_hashtag: "vim"},
   {name: "workflow", twitter_hashtag: "workflow"}
