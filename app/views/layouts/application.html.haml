@@ -12,8 +12,9 @@
           %li= link_to "Drafts", drafts_path, class: "text-blue py-2 px-4 block hover:text-red"
           %li= link_to "Profile", edit_profile_path, class: "text-blue py-2 px-4 block hover:text-red"
 
-    %header{class: "site_head fixed top-0 left-0 right-0 text-center pt-[6vw] py-[2vh] px-[6vw] z-10"}
+    %header{class: class_names("site_head fixed top-0 left-0 right-0 text-center py-[2vh] px-[6vw] z-10" => true, "pt-[2vh]" => ENV["organization_logo"].present?, "pt-[6vh]" => ENV["organization_logo"].blank?)}
       %div{class: "inline-block relative"}
+        = ENV["organization_logo"].present? ? image_tag(ENV["organization_logo"], class: "max-w-[90%] md:max-w-[60%] mx-auto") : nil
         %h1= link_to SITE_NAME, root_path, class: "text-navy text-3xl mt-12 md:mt-[unset] md:text-8xl block uppercase tracking-widest leading-none font-black font-['Raleway']"
         %h2{class: "flex justify-end flex-col md:flex-row mr-[1vw] gap-2"}
           = link_to (ENV["organization_name"].present? ? "" : icon("hashrocket", ENV['organization_name'] || "Hashrocket", "h-5 w-5 mr-1")) + "A #{ENV["organization_name"] || "Hashrocket"} project", ENV["organization_url"] || "https://hashrocket.com", class: "text-red text-right text-lg font-bold flex items-center py-1 font-['Raleway'] tracking-widest uppercase"
@@ -22,7 +23,7 @@
 
     = render 'shared/flash'
 
-    %main{class: "z-20 mt-60 relative mb-28 max-w-[90%] md:max-w-[60%] mx-auto"}= yield
+    %main{class: class_names("z-20 relative mb-28 max-w-[90%] md:max-w-[60%] mx-auto" => true, "mt-96" => ENV["organization_logo"].present?, "mt-60" => ENV["organization_logo"].blank?)}= yield
 
     %nav{class: "site_nav fixed bottom-0 left-0 z-30 right-0 md:right-[unset]"}
       %ul{class: "flex flex-row justify-between bg-white/90 md:bg-transparent md:flex-col"}

@@ -16,6 +16,7 @@ set :shared_dirs, fetch(:shared_dirs, []).concat(%w[
   tmp/pids
   tmp/cache
   public/assets
+  public/masthead.png
 ])
 
 set :shared_files, fetch(:shared_files, []).concat(%w[])
