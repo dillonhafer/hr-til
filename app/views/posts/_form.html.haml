@@ -14,7 +14,7 @@
         = pluralize(f.object.words_remaining, "words") + " available"
     %dd.mb-4
       #editor
-      = f.text_area :body, placeholder: 'Enter body...', class: 'autosize w-full border border-light focus:outline-none focus:ring-1 focus:ring-blue', data: {action: "input->character-limit#updateWordsAvailable"}
+      = f.text_area :body, placeholder: 'Enter body...', class: 'autosize w-full border border-light focus:outline-none focus:ring-1 focus:ring-blue', data: {controller: :multiline, action: "input->character-limit#updateWordsAvailable input->multiline#setHeight"}
 
     %dt
       = f.label :channel_id, "Channel "+f.object.errors[:channel_id].first.to_s, class: "font-bold #{"text-red" if f.object.errors[:channel_id].present?}"

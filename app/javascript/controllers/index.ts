@@ -2,6 +2,7 @@ import { Application } from "@hotwired/stimulus";
 import character_limit from "controllers/character_limit";
 import post_preview from "controllers/post_preview";
 import easter from "controllers/easter";
+import multiline from "controllers/multiline";
 
 declare global {
 	interface Window {
@@ -38,3 +39,4 @@ window.Stimulus.debug = !window.location.hostname.includes("til");
 window.Stimulus.register("character-limit", character_limit);
 window.Stimulus.register("post-preview", post_preview);
 window.Stimulus.register("easter", easter);
+window.Stimulus.register("multiline", multiline);
