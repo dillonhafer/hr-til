@@ -20,6 +20,7 @@ set :shared_dirs, fetch(:shared_dirs, []).concat(%w[
 
 set :shared_files, fetch(:shared_files, []).concat(%w[
   public/masthead.png
+  public/favicon.png
 ])
 
 task :remote_environment do
