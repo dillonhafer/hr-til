@@ -242,6 +242,7 @@ describe Post do
         post = FactoryBot.build(:post)
 
         expect(post).to receive(:notify_slack)
+        expect(post).to receive(:notify_basecamp)
         post.save
       end
     end
@@ -251,6 +252,7 @@ describe Post do
         post = FactoryBot.build(:post, :draft)
 
         expect(post).to_not receive(:notify_slack)
+        expect(post).to_not receive(:notify_basecamp)
         post.save
       end
     end
@@ -261,6 +263,7 @@ describe Post do
         post.published_at = Time.now
 
         expect(post).to receive(:notify_slack)
+        expect(post).to receive(:notify_basecamp)
         post.save
       end
     end
@@ -300,6 +303,7 @@ describe Post do
         post = FactoryBot.create(:post, likes: 9, max_likes: 9)
 
         expect(post).to receive(:notify_slack).once
+        expect(post).to receive(:notify_basecamp).once
         post.increment_likes # 10
         post.decrement_likes # 9
         post.increment_likes # 10

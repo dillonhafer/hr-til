@@ -18,6 +18,7 @@ class Post < ApplicationRecord
 
   before_create :generate_slug
   after_save :notify_slack_on_publication, if: :publishing?
+  after_save :notify_basecamp_on_publication, if: :publishing?
 
   scope :drafts, -> { where(published_at: nil) }
   scope :popular, -> { published.where("likes >= 5") }
@@ -44,6 +45,7 @@ class Post < ApplicationRecord
     self.max_likes += 1 if max_likes == likes
     self.likes += 1
     notify_slack_on_likes_threshold if likes_threshold?
+    notify_basecamp_on_likes_threshold if likes_threshold?
     save
   end
 
@@ -57,8 +59,16 @@ class Post < ApplicationRecord
     notify_slack("create")
   end
 
+  def notify_basecamp_on_publication
+    notify_basecamp("create")
+  end
+
   def notify_slack_on_likes_threshold
     notify_slack("likes_threshold")
+  end
+
+  def notify_basecamp_on_likes_threshold
+    notify_basecamp("likes_threshold")
   end
 
   def publish
@@ -135,5 +145,9 @@ class Post < ApplicationRecord
 
   def notify_slack(event)
     SlackNotifier.new.perform(self, event)
+  end
+
+  def notify_basecamp(event)
+    BasecampNotifier.new.perform(self, event)
   end
 end
