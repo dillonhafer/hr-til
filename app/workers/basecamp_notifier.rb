@@ -8,8 +8,7 @@ class BasecampNotifier
   def perform(post, event)
     return if notify_endpoint.blank?
     response = self.class.post notify_endpoint,
-      body: {content: body(post)},
-      headers: {"Accept" => "application/json", "Content-Type" => "application/json"}
+      body: {content: body(post)}
     unless response.success?
       raise "Sending message to basecamp failed with response #{response.code}"
     end
