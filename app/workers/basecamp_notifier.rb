@@ -3,7 +3,7 @@ class BasecampNotifier
   # include SuckerPunch::Job
   include HTTParty
 
-  base_uri "https://3.basecampapi.com"
+  base_uri "https://3.basecamp.com"
 
   def perform(post, event)
     return if notify_endpoint.blank?
