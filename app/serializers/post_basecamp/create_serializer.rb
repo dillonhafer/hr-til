@@ -18,9 +18,7 @@ class PostBasecamp::CreateSerializer < ActiveModel::Serializer
   end
 
   def encoded_title
-    # Escape only three symbols:
-    # https://api.slack.com/docs/formatting#how_to_escape_characters
-    object.title.gsub("&", "&amp;").gsub("<", "&lt;").gsub(">", "&gt;")
+    object.title
   end
 
   def full_url
