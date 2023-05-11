@@ -7,7 +7,8 @@ class BasecampNotifier
   def perform(post, event)
     return if notify_endpoint.blank?
     response = self.class.post notify_endpoint,
-      body: "PostBasecamp::#{event.classify}Serializer".constantize.new(post).to_json
+      body: "PostBasecamp::#{event.classify}Serializer".constantize.new(post).to_json,
+      headers: {"Accept" => "application/json"}
     unless response.success?
       raise "Sending message to basecamp failed with response #{response.code}"
     end
